@@ -122,7 +122,7 @@ li a:hover:not(.active) {
 }
 h3 {
   color: black;
-  font-size: 300%;
+  font-size: 200%;
   margin-top: 0;
   font-family: Haettenschweiler;
   text-shadow: 3px 3px blue;
@@ -302,8 +302,7 @@ var paysn=document.getElementById('paysname');
 document.getElementById('boutonpays').addEventListener('click', paymod,false);
 function paymod(){
   conseigne=2;
-  var name = document.getElementById('pays').value.toLowerCase();
-  name=name.substring(0, 1).toUpperCase() + name.substring(1);
+  var name = document.getElementById('pays').value;
   var link1="https://fr.wikipedia.org/wiki/"+name.toLowerCase();
   var link2="https://www.airbnb.fr/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
   var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
@@ -318,8 +317,8 @@ function paymod(){
       var data = JSON.parse(this.responseText);
       offna.innerHTML = 'Officiel Name'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
       capi.innerHTML = 'Capital'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
-      latit.innerHTML = 'Latitude'+"&nbsp"+':'+"&nbsp"+data.lat.toString();
-      longi.innerHTML = 'Longitude'+"&nbsp"+':'+"&nbsp"+data.lon.toString();
+      latit.innerHTML = 'Latitude'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
+      longi.innerHTML = 'Longitude'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
       paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
       map.setView([data.lat,data.lon], 4);
       map_init();
