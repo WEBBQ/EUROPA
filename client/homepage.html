@@ -319,6 +319,7 @@ function paymod(){
       latit.innerHTML = 'Latitude'+"&nbsp"+':'+"&nbsp"+data.lat.toString();
       longi.innerHTML = 'Longitude'+"&nbsp"+':'+"&nbsp"+data.lon.toString();
       paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
+      map.setView([data.lat,data.lon], 4);
       map_init();
       conseigne=1;
   }
