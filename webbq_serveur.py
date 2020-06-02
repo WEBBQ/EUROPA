@@ -5,7 +5,6 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
-from PIL import Image
 
 
 client_nom= json.dumps({
