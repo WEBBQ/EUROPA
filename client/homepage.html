@@ -156,6 +156,7 @@ button {
     margin: 2px 2px;
     cursor: pointer;
 }
+
 </style>
 
 <body>
@@ -313,6 +314,7 @@ function paymod(){
   document.getElementById('buttonmenu4').setAttribute("href",link4);
   var xhr2 = new XMLHttpRequest();
   xhr2.onload =function(){
+  	try{
       var data = JSON.parse(this.responseText);
       offna.innerHTML = 'Officiel Name'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
       capi.innerHTML = 'Capital'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
@@ -322,6 +324,9 @@ function paymod(){
       map.setView([data.lat,data.lon], 4);
       map_init();
       conseigne=1;
+    }catch(err){
+    	alert("We could find this country in Europa!");
+    }
   }
   xhr2.open('GET','/country/'+name,true);
   xhr2.send();
