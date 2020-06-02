@@ -235,7 +235,7 @@ var redIcon = new L.icon({
 function map_init () {
   var xhr1 = new XMLHttpRequest();
   if(conseigne==2){
-    var name=paysn.innerHTML.split(":")[1];
+    var name_a=paysn.innerHTML;
     var lat_a=latit.innerHTML.split(";")[2];
     var lon_a=longi.innerHTML.split(";")[2];
     xhr1.onload = function() {
@@ -251,7 +251,7 @@ function map_init () {
           .idnom=data[n].id;
         }else{
           L.marker([data[n].lat,data[n].lon]).addTo(map)
-          .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+data[n].id+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+          .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+name_a+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
           .addEventListener('dblclick',Mark)
           .idnom=data[n].id;
         } 
