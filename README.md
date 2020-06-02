@@ -2,7 +2,7 @@
 ECL2020-web-projet
 
 Membre(dans l'ordre de premier lettre du prenom) 
- - Anas Zilai
+ - Anas Zilali
  - Jinhan Zhou
  - Leon Alwin Margraff
  - Louis Brun
