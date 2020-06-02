@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<title>Europa</title>
+<link rel="stylesheet" type="text/css" href="leaflet.css" /> 
+<link rel="stylesheet" type="text/css" href="style.css"/>
+<link href='https://fonts.googleapis.com/css?family=Times' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<script src="leaflet.js">// Bibliothèque Leaflet : http://leafletjs.com/ </script> 
+<meta charset='utf-8'>
+<style>
+body {
+  width: 100%;
+  height: 100%;
+  font-family: Times, sans-serif;
+}
+*{
+    box-sizing: border-box;
+}
+.header{
+  width: 100%;
+  height: 12%;
+  margin: 0;
+  padding: 1%;
+  position: fixed;
+  font-family: Times;
+  background: linear-gradient(-125deg,white , blue);
+  border: 1px solid #666;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 5px 5px 5px #444;
+}
+.headcom1{
+  float: left;
+  padding: 0 2%;
+}
+.headcom2{
+  float: right;
+  padding: 0 2%;
+}
+.time{
+    float: right;
+    width: auto;
+    padding:0 50px;
+    border-left: 2px solid  rgba(255,255,255,.3);
+    height: 54px;
+    margin-top: 13px;
+    margin-left: 40px;
+    color:#fff;
+    cursor: default;
+    text-align: center;
+}
+.hour{
+    display: block;
+    width: auto;
+    font-size: 22px;
+    height: 34px;
+    line-height: 34px;
+    color:#fff;
+    cursor: default;
+}
+.data{
+    display: block;
+    width: auto;
+    font-size: 10px;
+    height:20px;
+    line-height: 20px;
+    color:#fff;
+    cursor: default;
+}
+h1 {
+  color: white;
+  margin-top: 0;
+  background: transparent;
+  font-family: Haettenschweiler;
+  text-shadow: 1px 1px maroon;
+  border: transparent;
+}
+h2 {
+  font-size: 75%;
+  color: white;
+  font-family: Times;
+  text-shadow: 0 0.2px red;
+}
+
+.menu {
+  list-style-type: none;
+  width: 15%;
+  height: 100%;
+  position: fixed;
+  margin: 5.5% 0;
+  padding: 5% 2%;
+  background: linear-gradient(0deg, #ffa50040, orange), url('europa_element.jpg');
+  background-size: cover; 
+  background-position: 75%;
+  border: 1px solid red;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px #444;
+}
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.main {
+  width: 85%;
+  height: 100%;
+  position: fixed;
+  margin: 6% 15%;
+  padding: 5%;
+  background: url(europa_fate.jpg);
+  background-size: cover;
+  background-position: 50% 20%;
+}
+h3 {
+  color: black;
+  font-size: 300%;
+  margin-top: 0;
+  font-family: Haettenschweiler;
+  text-shadow: 3px 3px blue;
+}
+h4{
+  color: white;
+  font-size: 120%;
+  font-family: Times;
+  text-shadow: 1px 1px black;
+}
+label {
+  font-family: Times;
+  display: block;
+  padding-bottom: 0.3px;
+}
+label span {
+  font-family: Times;
+  display: inline-block;
+  width : 5em;
+}
+button {
+    background: linear-gradient(85deg, #ffa50040, blue);
+    border: none;
+    color: white;
+    padding: 1.5% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Open Sans;
+    font-size: 75%;
+    margin: 2px 2px;
+    cursor: pointer;
+}
+</style>
+
+<body>
+
+<div class="main">
+<div><h3 id="paysname"><b>EUROPE<b></h3></div>
+<div><h4>
+  <span id="offn" style="position: absolute;top:30%;left:5%">My body became wide as a continent.</span>
+  <span id="cap" style="position: absolute;top:40%;left:5%">From every part of me birds flew.</span>
+  <span id="lati" style="position: absolute;top:50%;left:5%">The bull still buckles under me, the plates</span>
+  <span id="long" style="position: absolute;top:60%;left:5%">of earth’s muscles dance as they course through deep space.</span>
+</h4></div>
+<!-- Zone pour l'insertion de la carte OSM via Leaflet -->
+<div>
+  <span><div id="map" style="position: absolute; top: 5%; right: 2%; width: 50%;height: 80%;text-shadow: 0px,0px,white"></div></span>
+</div>
+</div>
+
+<div class="menu">
+<li><a href="https://fr.wikipedia.org/wiki/europe" class="button" id="buttonmenu1">Wikipedia</a></li>
+<li><a href="https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query" class="button" id="buttonmenu2">Hotel</a></li>
+<li><a href="https://artsandculture.google.com/search?q=europe" class="button" id="buttonmenu3">Art</a></li>
+<li><a href="https://www.kiwi.com/fr/landing/-/-" class="button">Transport</a></li>
+<li><a href="https://guide.michelin.com/fr/fr/search?q=europe" class="button" id="buttonmenu4">Food</a></li>
+</div>
+
+<div class="header">
+<div class="headcom1"><h1>Europa |</h1></div>
+<div class="headcom1"><h2 id="nom"></h2><p><h2 id="timeP"></h2></p></div>
+<div class="headcom2">
+  <label><span>Country :</span><input id="pays"  list="browsers">
+    <datalist id="browsers"></datalist></label>
+  <div class="headcom"><button id="boutonpays">Search</button></div>
+</div>
+</div>
+</body>
+
+<script>
+var conseigne=0;
+function getnom() {
+  var xhr = new XMLHttpRequest();
+  xhr.onload =function(){
+    var data = JSON.parse(this.responseText);
+      // affichage dans la zone 'nom' du prénom et du nom récupéré par l'appel au serveur
+    document.getElementById('nom').innerHTML ='Welcome! ' + data.given_name + ' ' + data.family_name;
+  };
+  xhr.open('GET','/nom',true);
+  xhr.send();
+};
+
+function getTime(){
+  var p = document.getElementById("timeP");
+  var time =  new Date();
+  var year = time.getFullYear();
+  var month = time.getMonth() + 1;
+  var day = time.getDate();
+  var hour = time.getHours();
+  var minutes = time.getMinutes();
+  var seconds = time.getSeconds();
+  var str = "Now : "+year +"-"+ month +"-"+ day + " " +hour+":"+minutes+":"+seconds;
+  p.innerText = str;
+  setTimeout(getTime,1000);
+} 
+
+var payslist=document.getElementById('browsers');
+var map = L.map('map');
+map.setView([45.75,4.85], 4);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+     }).addTo(map);
+var redIcon = new L.icon({
+  iconUrl: "images/marker-icon-red.png",
+  iconAnchor: [12, 41.7],
+  labelAnchor: [-6, 0],
+  popupAnchor: [0, -36],
+  });
+function map_init () {
+  var xhr1 = new XMLHttpRequest();
+  if(conseigne==2){
+    var name=paysn.innerHTML.split(":")[1];
+    var lat_a=latit.innerHTML.split(";")[2];
+    var lon_a=longi.innerHTML.split(";")[2];
+    xhr1.onload = function() {
+      var data = JSON.parse(this.responseText);
+      for ( n = 0; n < data.length; n++ ) {
+        var a=lat_a-data[n].lat;
+        var b=lon_a-data[n].lon;
+        var distance=2*Math.asin(Math.sqrt(Math.sin(a/2)**2+Math.cos(lat_a)*Math.cos(data[n].lat)*Math.sin(b/2)**2))*6378.137;
+        if(distance==0){
+          L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
+          .bindPopup("Europe | "+data[n].name+"<br>"+"You're here!")
+          .addEventListener('dblclick',Mark)
+          .idnom=data[n].id;
+        }else{
+          L.marker([data[n].lat,data[n].lon]).addTo(map)
+          .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+data[n].id+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+          .addEventListener('dblclick',Mark)
+          .idnom=data[n].id;
+        } 
+      }
+    };
+    xhr1.open('GET','/location',true);
+    xhr1.send();
+  }
+  if(conseigne==0){
+    var lis="";
+    xhr1.onload = function() {
+      var data = JSON.parse(this.responseText);
+      for ( n = 0; n < data.length; n++ ) {
+        // insertion d'un marqueur à la position du lieu,
+        // attachement d'une popup, capture de l'événement 'clic'
+        // ajout d'une propriété personnalisée au marqueur
+        L.marker([data[n].lat,data[n].lon]).addTo(map)
+         .bindPopup("Europe | "+data[n].name)
+         .addEventListener('dblclick',Mark)
+         .idnom=data[n].id;
+        lis=lis+"<option value="+data[n].id+">"; 
+        payslist.innerHTML=lis;
+      }
+    };
+    xhr1.open('GET','/location',true);
+    xhr1.send();
+  }
+}
+function Mark(e){
+  document.getElementById('pays').value=e.target.idnom;
+  paymod();
+}
+
+window.onload = function(){
+  if(conseigne==0){
+    getnom();
+    map_init();
+    conseigne=1;
+  }
+  getTime();
+}
+var offna=document.getElementById('offn');
+var capi=document.getElementById('cap');
+var latit=document.getElementById('lati');
+var longi=document.getElementById('long');
+var paysn=document.getElementById('paysname');
+document.getElementById('boutonpays').addEventListener('click', paymod,false);
+function paymod(){
+  conseigne=2;
+  var name = document.getElementById('pays').value.toLowerCase();
+  name=name.substring(0, 1).toUpperCase() + name.substring(1);
+  var link1="https://fr.wikipedia.org/wiki/"+name.toLowerCase();
+  var link2="https://www.airbnb.fr/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+  var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
+  var link4="https://guide.michelin.com/fr/fr/search?q="+name.toLowerCase();
+  document.getElementById('buttonmenu1').setAttribute("href",link1);
+  document.getElementById('buttonmenu2').setAttribute("href",link2);
+  document.getElementById('buttonmenu3').setAttribute("href",link3);
+  document.getElementById('buttonmenu4').setAttribute("href",link4);
+  var xhr2 = new XMLHttpRequest();
+  xhr2.onload =function(){
+      var data = JSON.parse(this.responseText);
+      offna.innerHTML = 'Officiel Name'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
+      capi.innerHTML = 'Capital'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
+      latit.innerHTML = 'Latitude'+"&nbsp"+':'+"&nbsp"+data.lat.toString();
+      longi.innerHTML = 'Longitude'+"&nbsp"+':'+"&nbsp"+data.lon.toString();
+      paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
+      map_init();
+      conseigne=1;
+  }
+  xhr2.open('GET','/country/'+name,true);
+  xhr2.send();
+}
+</script>

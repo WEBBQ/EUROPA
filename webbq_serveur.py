@@ -5,6 +5,7 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
+from PIL import Image
 
 
 client_nom= json.dumps({
@@ -81,12 +82,10 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             'given_name': self.path_info[1], \
             'family_name': self.path_info[2] \
              });
-    print("nom :",client_nom)
     
   def send_nom(self):
     global client_nom
     body=client_nom
-    print("Body : ",body)
     headers = [('Content-Type','application/json')];
     self.send(body,headers)
 
@@ -110,7 +109,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     data=[]
     n=0
     for a in r:
-      print(a[0])
       n+=1
       sql = 'SELECT * from europe_country WHERE wp=?'
       c.execute(sql,(a[0],))
@@ -139,7 +137,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         })
       # on envoie la réponse
       headers = [('Content-Type','application/json')]
-      print(body)
       self.send(body,headers)
 
   # on envoie le document statique demandé
