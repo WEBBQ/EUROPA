@@ -129,6 +129,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     # on génère un document au format html
     else:
       body = json.dumps({
+        'wp':r['wp'],\
         'offname':r['name'],\
         'capital':r['capital'],\
         'lat':r['latitude'],\

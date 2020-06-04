@@ -1,182 +1,315 @@
 <!DOCTYPE html>
-<title>Europa</title>
-<link rel="stylesheet" type="text/css" href="leaflet.css" /> 
-<link rel="stylesheet" type="text/css" href="style.css"/>
-<link href='https://fonts.googleapis.com/css?family=Times' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-<script src="leaflet.js">// Bibliothèque Leaflet : http://leafletjs.com/ </script> 
-<meta charset='utf-8'>
+<html>
+    <head>
+        <title>Europa</title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" type="text/css" href="leaflet.css" /> 
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Times' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <script src="leaflet.js">// Bibliothèque Leaflet : http://leafletjs.com/ </script> 
+          <!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
+        <script src="https://kit.fontawesome.com/2f8c6e89bd.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Europa</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <input id="pays" list="browsers" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <datalist id="browsers"></datalist>
+            <button class="btn btn-outline-info my-2 my-sm-0" id="boutonpays">Search</button>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                  <span id="nom"></span>
+                  <span id="timeP"></span>
+                </li>
+            </ul>
+        </nav>
+        <div class="container-fluid">
+          <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+              <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a id="buttonmenu1" class="nav-link" href="#">
+                      <i class="fab fa-wikipedia-w"></i>
+                      Wikipedia
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu2" class="nav-link" href="#">
+                      <i class="fas fa-hotel"></i>
+                      Hotel
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu3" class="nav-link" href="#">
+                      <i class="fas fa-archway"></i>
+                      Art
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu4" class="nav-link" href="#">
+                      <i class="fas fa-bus"></i>
+                      Transport
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <i class="fas fa-utensils"></i>
+                      Food
+                    </a>
+                  </li>
+                </ul>
 
-<body>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <span>items 2</span>
+                  <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                    <span data-feather="plus-circle"></span>
+                  </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                        Autres
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                        Autres
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                        Autres
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">
+                      <span data-feather="file-text"></span>
+                        Autres
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
 
-<div class="main">
-<div><h3 id="paysname"><b>EUROPE<b></h3></div>
-<div><h4>
-  <span id="offn" style="position: absolute;top:30%;left:5%">My body became wide as a continent.</span>
-  <span id="cap" style="position: absolute;top:40%;left:5%">From every part of me birds flew.</span>
-  <span id="lati" style="position: absolute;top:50%;left:5%">The bull still buckles under me, the plates</span>
-  <span id="long" style="position: absolute;top:60%;left:5%">of earth’s muscles dance as they course through deep space.</span>
-</h4></div>
-<!-- Zone pour l'insertion de la carte OSM via Leaflet -->
-<div>
-  <span><div id="map" style="position: absolute; top: 5%; right: 2%; width: 50%;height: 80%;text-shadow: 0px,0px,white"></div></span>
-</div>
-</div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Map</h1>
+                <!--
+                <div class="btn-toolbar mb-2 mb-md-0">
+                  <div class="btn-group mr-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                    <span data-feather="calendar"></span>
+                    This week
+                  </button>
+                </div>
+                -->
+              </div>
 
-<div class="menu">
-<li><a href="https://fr.wikipedia.org/wiki/europe" class="button" id="buttonmenu1">Wikipedia</a></li>
-<li><a href="https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query" class="button" id="buttonmenu2">Hotel</a></li>
-<li><a href="https://artsandculture.google.com/search?q=europe" class="button" id="buttonmenu3">Art</a></li>
-<li><a href="https://www.kiwi.com/fr/landing/-/-" class="button">Transport</a></li>
-<li><a href="https://guide.michelin.com/fr/fr/search?q=europe" class="button" id="buttonmenu4">Food</a></li>
-</div>
+              <div class="my-4 w-100" width="900" height="380" id="map"></div>
 
-<div class="header">
-<div class="headcom1"><h1>Europa |</h1></div>
-<div class="headcom1"><h2 id="nom"></h2><p><h2 id="timeP"></h2></p></div>
-<div class="headcom2">
-  <label><span>Country :</span><input id="pays"  list="browsers">
-    <datalist id="browsers"></datalist></label>
-  <div class="headcom"><button id="boutonpays">Search</button></div>
-</div>
-</div>
-</body>
+              <h2 id="title_info">Informations sur le pays</h2>
+              <div id="table_info" class="table-responsive">
+                <table class="table table-striped table-sm">
+                  <tbody>
+                    <tr>
+                      <td id="flag"></td>
+                      <td id="info">
+                        <div id="paysname"></div>
+                        <ul id="other_info">
+                          <li id="offn"></li>
+                          <li id="cap"></li>
+                          <li id="lati"></li>
+                          <li id="long"></li>
+                        </ul>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </main>
+          </div>
+        </div>
+    </body>
+    <script type="text/javascript" src="flags.js"></script>
+    <script>
+        var conseigne=0;
+        function getnom() {
+            var xhr = new XMLHttpRequest();
+            xhr.onload =function(){
+                var data = JSON.parse(this.responseText);
+                // affichage dans la zone 'nom' du prénom et du nom récupéré par l'appel au serveur
+                document.getElementById('nom').innerHTML ='Welcome! ' + data.given_name + ' ' + data.family_name;
+            };
+            xhr.open('GET','/nom',true);
+            xhr.send();
+        };
 
-<script>
-var conseigne=0;
-function getnom() {
-  var xhr = new XMLHttpRequest();
-  xhr.onload =function(){
-    var data = JSON.parse(this.responseText);
-      // affichage dans la zone 'nom' du prénom et du nom récupéré par l'appel au serveur
-    document.getElementById('nom').innerHTML ='Welcome! ' + data.given_name + ' ' + data.family_name;
-  };
-  xhr.open('GET','/nom',true);
-  xhr.send();
-};
-
-function getTime(){
-  var p = document.getElementById("timeP");
-  var time =  new Date();
-  var year = time.getFullYear();
-  var month = time.getMonth() + 1;
-  var day = time.getDate();
-  var hour = time.getHours();
-  var minutes = time.getMinutes();
-  var seconds = time.getSeconds();
-  var str = "Now : "+year +"-"+ month +"-"+ day + " " +hour+":"+minutes+":"+seconds;
-  p.innerText = str;
-  setTimeout(getTime,1000);
-} 
-
-var payslist=document.getElementById('browsers');
-var map = L.map('map');
-map.setView([45.75,4.85], 4);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-     }).addTo(map);
-var redIcon = new L.icon({
-  iconUrl: "images/marker-icon-red.png",
-  iconAnchor: [12, 41.7],
-  labelAnchor: [-6, 0],
-  popupAnchor: [0, -36],
-  });
-function map_init () {
-  var xhr1 = new XMLHttpRequest();
-  if(conseigne==2){
-    var name_a=paysn.innerHTML;
-    var lat_a=latit.innerHTML.split(";")[2];
-    var lon_a=longi.innerHTML.split(";")[2];
-    xhr1.onload = function() {
-      var data = JSON.parse(this.responseText);
-      for ( n = 0; n < data.length; n++ ) {
-        var a=lat_a-data[n].lat;
-        var b=lon_a-data[n].lon;
-        var distance=2*Math.asin(Math.sqrt(Math.sin(a/2)**2+Math.cos(lat_a)*Math.cos(data[n].lat)*Math.sin(b/2)**2))*6378.137;
-        if(distance==0){
-          L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
-          .bindPopup("Europe | "+data[n].name+"<br>"+"You're here!")
-          .addEventListener('dblclick',Mark)
-          .idnom=data[n].id;
-        }else{
-          L.marker([data[n].lat,data[n].lon]).addTo(map)
-          .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+name_a+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
-          .addEventListener('dblclick',Mark)
-          .idnom=data[n].id;
+        function getTime(){
+            var p = document.getElementById("timeP");
+            var time =  new Date();
+            var year = time.getFullYear();
+            var month = time.getMonth() + 1;
+            var day = time.getDate();
+            var hour = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            var str = " | " + hour+":"+minutes+":"+seconds + " - " + day + "/" + month + "/" + year;
+            p.innerText = str;
+            setTimeout(getTime,1000);
         } 
-      }
-    };
-    xhr1.open('GET','/location',true);
-    xhr1.send();
-  }
-  if(conseigne==0){
-    var lis="";
-    xhr1.onload = function() {
-      var data = JSON.parse(this.responseText);
-      for ( n = 0; n < data.length; n++ ) {
-        // insertion d'un marqueur à la position du lieu,
-        // attachement d'une popup, capture de l'événement 'clic'
-        // ajout d'une propriété personnalisée au marqueur
-        L.marker([data[n].lat,data[n].lon]).addTo(map)
-         .bindPopup("Europe | "+data[n].name)
-         .addEventListener('dblclick',Mark)
-         .idnom=data[n].id;
-        lis=lis+"<option value="+data[n].id+">"; 
-        payslist.innerHTML=lis;
-      }
-    };
-    xhr1.open('GET','/location',true);
-    xhr1.send();
-  }
-}
-function Mark(e){
-  document.getElementById('pays').value=e.target.idnom;
-  paymod();
-}
 
-window.onload = function(){
-  if(conseigne==0){
-    getnom();
-    map_init();
-    conseigne=1;
-  }
-  getTime();
-}
-var offna=document.getElementById('offn');
-var capi=document.getElementById('cap');
-var latit=document.getElementById('lati');
-var longi=document.getElementById('long');
-var paysn=document.getElementById('paysname');
-document.getElementById('boutonpays').addEventListener('click', paymod,false);
-function paymod(){
-  conseigne=2;
-  var name = document.getElementById('pays').value;
-  var link1="https://fr.wikipedia.org/wiki/"+name.toLowerCase();
-  var link2="https://www.airbnb.fr/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
-  var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
-  var link4="https://guide.michelin.com/fr/fr/search?q="+name.toLowerCase();
-  document.getElementById('buttonmenu1').setAttribute("href",link1);
-  document.getElementById('buttonmenu2').setAttribute("href",link2);
-  document.getElementById('buttonmenu3').setAttribute("href",link3);
-  document.getElementById('buttonmenu4').setAttribute("href",link4);
-  var xhr2 = new XMLHttpRequest();
-  xhr2.onload =function(){
-  	try{
-      var data = JSON.parse(this.responseText);
-      offna.innerHTML = 'Officiel Name'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
-      capi.innerHTML = 'Capital'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
-      latit.innerHTML = 'Latitude'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
-      longi.innerHTML = 'Longitude'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
-      paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
-      map.setView([data.lat,data.lon], 4);
-      map_init();
-      conseigne=1;
-    }catch(err){
-    	alert("We could find this country in Europa!");
-    }
-  }
-  xhr2.open('GET','/country/'+name,true);
-  xhr2.send();
-}
-</script>
+        var payslist=document.getElementById('browsers');
+        var map = L.map('map');
+        map.setView([45.75,4.85], 4);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        var redIcon = new L.icon({
+            iconUrl: "images/marker-icon-red.png",
+            iconAnchor: [12, 41.7],
+            labelAnchor: [-6, 0],
+            popupAnchor: [0, -36],
+        });
+        function getCountryCode(countryName) {
+            return "https://lipis.github.io/flag-icon-css/flags/4x3/"+
+            codes.find(o=>o.name.match(RegExp(countryName,'i'))).code.toLowerCase()+".svg";
+        }
+        
+        var offna2=document.getElementById('offn2');
+        var capi2=document.getElementById('cap2');
+        var latit2=document.getElementById('lati2');
+        var longi2=document.getElementById('long2');
+        var paysn2=document.getElementById('paysname2');
+        
+        function map_init () {
+            var xhr1 = new XMLHttpRequest();
+            if(conseigne==2){
+                var name_a=paysn.innerHTML;
+                var lat_a=latit.innerHTML.split(";")[2];
+                var lon_a=longi.innerHTML.split(";")[2];
+                xhr1.onload = function() {
+                var data = JSON.parse(this.responseText);
+                    for ( n = 0; n < data.length; n++ ) {
+                        var a=lat_a-data[n].lat;
+                        var b=lon_a-data[n].lon;
+                        var distance=2*Math.asin(Math.sqrt(Math.sin(a/2)**2+Math.cos(lat_a)*Math.cos(data[n].lat)*Math.sin(b/2)**2))*6378.137;
+                        if(distance==0){
+                            L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
+                            .bindPopup("Europe | "+data[n].name+"<br>"+"You're here!")
+                            .addEventListener('dblclick',Mark)
+                            .idnom=data[n].id;
+                        }else{
+                            L.marker([data[n].lat,data[n].lon]).addTo(map)
+                            .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+name_a+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+                            .addEventListener('dblclick',Mark)
+                            .idnom=data[n].id;
+                        } 
+                    }
+                };
+                xhr1.open('GET','/location',true);
+                xhr1.send();
+            }
+            if(conseigne==0){
+                var lis="";
+                xhr1.onload = function() {
+                    var data = JSON.parse(this.responseText);
+                    for ( n = 0; n < data.length; n++ ) {
+                        // insertion d'un marqueur à la position du lieu,
+                        // attachement d'une popup, capture de l'événement 'clic'
+                        // ajout d'une propriété personnalisée au marqueur
+                        L.marker([data[n].lat,data[n].lon]).addTo(map)
+                        .bindPopup("Europe | "+data[n].name)
+                        .addEventListener('dblclick',Mark)
+                        .idnom=data[n].id;
+                        lis=lis+"<option value="+data[n].id+">"; 
+                        payslist.innerHTML=lis;
+                    }
+                };
+                xhr1.open('GET','/location',true);
+                xhr1.send();
+            }
+        }
+        function Mark(e){
+            document.getElementById('pays').value=e.target.idnom;
+            paymod();
+        }
+
+        window.onload = function(){
+            if(conseigne==0){
+                getnom();
+                map_init();
+                conseigne=1;
+            }
+            getTime();
+        }
+
+        var offna=document.getElementById('offn');
+        var capi=document.getElementById('cap');
+        var latit=document.getElementById('lati');
+        var longi=document.getElementById('long');
+        var paysn=document.getElementById('paysname');
+        document.getElementById('boutonpays').addEventListener('click', paymod,false);
+
+
+        function paymod(){
+            conseigne=2;
+
+            var name = document.getElementById('pays').value;
+            
+            var link1="https://fr.wikipedia.org/wiki/"+name.toLowerCase();
+            var link2="https://www.airbnb.fr/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
+            var link4="https://guide.michelin.com/fr/fr/search?q="+name.toLowerCase();
+
+            var xhr2 = new XMLHttpRequest();
+            xhr2.onload =function(){
+                try{
+                    var data = JSON.parse(this.responseText);
+                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(c)+'">').join('');
+                    document.getElementById("title_info").style.display = "block";
+                    document.getElementById("table_info").style.display = "block";
+                    offna.innerHTML = '<b>Officiel Name</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
+                    capi.innerHTML = '<b>Capital</b>'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
+                    latit.innerHTML = '<b>Latitude</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
+                    longi.innerHTML = '<b>Longitude</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
+                    paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
+                   
+                    document.getElementById('buttonmenu1').setAttribute("href",link1);
+                    document.getElementById('buttonmenu2').setAttribute("href",link2);
+                    document.getElementById('buttonmenu3').setAttribute("href",link3);
+                    document.getElementById('buttonmenu4').setAttribute("href",link4);
+                   
+                    map.setView([data.lat,data.lon], 4);
+                    map_init();
+                    conseigne=1;
+                }catch(err){
+                    alert("We could find this country in Europa!");
+                }
+            }
+            xhr2.open('GET','/country/'+name,true);
+            xhr2.send();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</html>
