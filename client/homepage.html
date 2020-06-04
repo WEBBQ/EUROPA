@@ -38,31 +38,31 @@
               <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                   <li class="nav-item">
-                    <a id="buttonmenu1" class="nav-link" href="#">
+                    <a id="buttonmenu1" class="nav-link" href="https://fr.wikipedia.org/wiki/europe">
                       <i class="fab fa-wikipedia-w"></i>
                       Wikipedia
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a id="buttonmenu2" class="nav-link" href="#">
+                    <a id="buttonmenu2" class="nav-link" href="https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query">
                       <i class="fas fa-hotel"></i>
                       Hotel
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a id="buttonmenu3" class="nav-link" href="#">
+                    <a id="buttonmenu3" class="nav-link" href="https://artsandculture.google.com/search?q=europe">
                       <i class="fas fa-archway"></i>
                       Art
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a id="buttonmenu4" class="nav-link" href="#">
+                    <a class="nav-link" href="https://www.kiwi.com/fr/landing/-/-">
                       <i class="fas fa-bus"></i>
                       Transport
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a id="buttonmenu4" class="nav-link" href="https://guide.michelin.com/fr/fr/search?q=europe">
                       <i class="fas fa-utensils"></i>
                       Food
                     </a>
@@ -123,7 +123,7 @@
 
               <div class="my-4 w-100" width="900" height="380" id="map"></div>
 
-              <h2 id="title_info">Informations sur le pays</h2>
+              <h2 id="title_info">Informations</h2>
               <div id="table_info" class="table-responsive">
                 <table class="table table-striped table-sm">
                   <tbody>
@@ -202,7 +202,7 @@
         function map_init () {
             var xhr1 = new XMLHttpRequest();
             if(conseigne==2){
-                var name_a=paysn.innerHTML;
+                var name_a=paysn.innerHTML.split(">")[1].split("<")[0];
                 var lat_a=latit.innerHTML.split(";")[2];
                 var lon_a=longi.innerHTML.split(";")[2];
                 xhr1.onload = function() {
@@ -211,14 +211,15 @@
                         var a=lat_a-data[n].lat;
                         var b=lon_a-data[n].lon;
                         var distance=2*Math.asin(Math.sqrt(Math.sin(a/2)**2+Math.cos(lat_a)*Math.cos(data[n].lat)*Math.sin(b/2)**2))*6378.137;
-                        if(distance==0){
+                        var name_wp=data[n].id.toUpperCase();
+                        if(name_wp==name_a){
                             L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
-                            .bindPopup("Europe | "+data[n].name+"<br>"+"You're here!")
+                            .bindPopup("Europe | "+data[n].name+"<br>"+"You're at"+"&nbsp"+"<b>"+name_a+"</b>")
                             .addEventListener('dblclick',Mark)
                             .idnom=data[n].id;
                         }else{
                             L.marker([data[n].lat,data[n].lon]).addTo(map)
-                            .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+name_a+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+                            .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
                             .addEventListener('dblclick',Mark)
                             .idnom=data[n].id;
                         } 
