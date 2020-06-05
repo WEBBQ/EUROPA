@@ -77,7 +77,7 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                   <li class="nav-item">
-                    <a class="nav-link" href="/homepage.html#" id="EN">
+                    <a class="nav-link" href="/EN/homepage.html#" id="EN">
                       <span data-feather="file-text"></span>
                         ENGLISH
                     </a>
@@ -201,7 +201,7 @@
         });
         function getCountryCode(countryName) {
             return "https://lipis.github.io/flag-icon-css/flags/4x3/"+
-            codes.find(o=>o.name.match(RegExp(countryName,'i'))).code.toLowerCase()+".svg";
+            codes.find(o=>o.name.match(RegExp(countryName.split(" ")[0],'i'))).code.toLowerCase()+".svg";
         }
         
         function map_init () {
@@ -293,21 +293,21 @@
 
             var name = document.getElementById('pays').value;
             
-            var link1="https://"+lang_a+".wikipedia.org/wiki/"+name.toLowerCase();
-            var link2="https://www.airbnb."+lang_b+"/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
-            var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
-            var link4="https://guide.michelin.com/"+lang_a+"/"+lang_a+"/search?q="+name.toLowerCase();
+            var link1="https://"+lang_a+".wikipedia.org/wiki/"+name;
+            var link2="https://www.airbnb."+lang_b+"/s/"+name+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            var link3="https://artsandculture.google.com/search?q="+name;
+            var link4="https://guide.michelin.com/"+lang_a+"/"+lang_a+"/search?q="+name;
             if(lang_a=="en"){
-                link2="https://www.airbnb.co.uk/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+                link2="https://www.airbnb.co.uk/s/"+name+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
             }
             if(lang_a=="zh"){
-                link4="https://guide.michelin.com/sg/zh_CN/search?q="+name.toLowerCase();
+                link4="https://guide.michelin.com/sg/zh_CN/search?q="+name;
             }
             var xhr2 = new XMLHttpRequest();
             xhr2.onload =function(){
                 try{
                     var data = JSON.parse(this.responseText);
-                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(c)+'">').join('');
+                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
                     document.getElementById("title_info").style.display = "block";
                     document.getElementById("table_info").style.display = "block";
                     offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
@@ -360,8 +360,8 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.co.uk/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/en/landing/-/-");
-        map_init();
         conseigne=0;
+        map_init();
     }
     function tofr(){
         lang_a="fr";
@@ -388,8 +388,8 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/fr/fr/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/fr/landing/-/-");
-        map_init();
         conseigne=0;
+        map_init();
     }
     function tode(){
         lang_a="de";
@@ -417,6 +417,7 @@
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/de/de/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/de/landing/-/-");
         conseigne=0;
+        map_init();
     }
     function tozh(){
         lang_a="zh";
@@ -444,6 +445,7 @@
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
         conseigne=0;
+        map_init();
     }
 
     </script>

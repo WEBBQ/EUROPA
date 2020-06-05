@@ -4,8 +4,8 @@ import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
 
-lang_choix=['fr','de','zh']
-lang=''
+lang_choix=['en','fr','de','zh']
+lang='_en'
 client_nom= json.dumps({
             'given_name': 'Visteur', \
             'family_name': '001' \
@@ -23,7 +23,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
   def do_GET(self):
     global lang
     self.init_params()
-    print(self.path)
     # prénom et nom dans la chaîne de requête
     if self.path_info[0] == "toctoc":
       self.send_toctoc()
@@ -82,7 +81,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     self.end_headers()
     self.wfile.write(body)
 
-  def get_countries(self,lang=''):
+  def get_countries(self,lang='_en'):
     # création d'un curseur (conn est globale)
     c = conn.cursor()
     # récupération de la liste des pays dans la base
@@ -91,7 +90,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     # construction de la réponse
     data=[]
     for a in r:
-      print(a[0])
       sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
       c.execute(sql,(a[0],))
       r = c.fetchone()
@@ -99,7 +97,13 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     return data
   
   # On renvoie les informations d'un pays
-  def send_country(self,country,lang=''):
+  def send_country(self,country,lang='_en'):
+    pal=country.split("%20")
+    pan=pal.pop(0)
+    for cn in pal:
+      pan+=" "+"cn"
+    country=pan
+    print(country)
     # préparation de la requête SQL
     c = conn.cursor()
     sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
@@ -107,6 +111,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     c.execute(sql,(country,))
     r = c.fetchone()
     # on n'a pas trouvé le pays demandé
+    print(r)
     if r == None:
       self.send_error(404,'Country not found')
     # on génère un document au format html
@@ -116,7 +121,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         'offname':r['name'],\
         'capital':r['capital'],\
         'lat':r['latitude'],\
-        'lon':r['longitude']\
+        'lon':r['longitude'],\
+        'id':r['wp_en']
         })
       # on envoie la réponse
       headers = [('Content-Type','application/json')]
