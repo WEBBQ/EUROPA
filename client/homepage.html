@@ -202,7 +202,7 @@
         });
         function getCountryCode(countryName) {
             return "https://lipis.github.io/flag-icon-css/flags/4x3/"+
-            codes.find(o=>o.name.match(RegExp(countryName.split("-")[0],'i'))).code.toLowerCase()+".svg";
+            codes.find(o=>o.name.match(RegExp(countryName.split("-")[0].split(' ')[0],'i'))).code.toLowerCase()+".svg";
         }
         function getAnthemCode(countryName) {
             return "https://anthemworld.com/~anthemwo/themesongs/"+countryName+".mp3";
