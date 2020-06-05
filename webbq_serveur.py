@@ -1,12 +1,11 @@
-# TD3-serveur1.py
-
 import http.server
 import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
 
-
+lang_choix=["fr","de","zh"]
+lang=""
 client_nom= json.dumps({
             'given_name': 'Visteur', \
             'family_name': '001' \
@@ -18,10 +17,11 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
   static_dir = '/client'
 
   # version du serveur
-  server_version = 'webbq_serveur.py/1.0'
+  server_version = 'webbq_serveur.py/2.0'
 
   # on surcharge la méthode qui traite les requêtes GET
   def do_GET(self):
+    global lang
     self.init_params()
     # prénom et nom dans la chaîne de requête
     if self.path_info[0] == "toctoc":
@@ -30,40 +30,21 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       self.send_nom()
     # requete location - retourne la liste de lieux et leurs coordonnées géogrpahiques
     elif self.path_info[0] == "location":
-      data=self.get_countries()
+      data=self.get_countries(lang)
       self.send_json(data)
     # le chemin d'accès commence par /country et se poursuit par un nom de pays
     elif self.path_info[0] == 'country' and len(self.path_info) > 1:
-      self.send_country(self.path_info[1])
+      self.send_country(self.path_info[1],lang)
     # requête générique
     elif self.path_info[0] == "service":
       self.send_html('<p>Path info : <code>{}</p><p>Chaîne de requête : <code>{}</code></p>' \
           .format('/'.join(self.path_info),self.query_string));
+    elif self.path_info[0] in lang_choix:
+      lang="_"+self.path_info[0]
+      self.path = "/"+self.path_info[1]
+      self.send_static()
     else:
       self.send_static()
-
-  # méthode pour traiter les requêtes HEAD
-  def do_HEAD(self):
-      self.send_static()
-
-  # méthode pour traiter les requêtes POST
-  def do_POST(self):
-    self.init_params()
-
-    # prénom et nom dans la chaîne de requête dans le corps
-    if self.path_info[0] == "toctoc":
-      self.send_toctoc()
-
-    elif self.path_info[0] == "nom":
-      self.send_nom()
-      
-    # requête générique
-    elif self.path_info[0] == "service":
-      self.send_html(('<p>Path info : <code>{}</code></p><p>Chaîne de requête : <code>{}</code></p>' \
-          + '<p>Corps :</p><pre>{}</pre>').format('/'.join(self.path_info),self.query_string,self.body));
-
-    else:
-      self.send_error(405)
 
   #
   # On envoie un document le nom et le prénom
@@ -98,28 +79,28 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     self.end_headers()
     self.wfile.write(body)
 
-  def get_countries(self):
+  def get_countries(self,lang=''):
     # création d'un curseur (conn est globale)
     c = conn.cursor()
     # récupération de la liste des pays dans la base
-    c.execute("SELECT wp FROM europe_country")
+    c.execute("SELECT wp FROM europe_country"+lang)
     r = c.fetchall()
     # construction de la réponse
     data=[]
     n=0
     for a in r:
       n+=1
-      sql = 'SELECT * from europe_country WHERE wp=?'
+      sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
       c.execute(sql,(a[0],))
       r = c.fetchone()
       data.append({'id':a[0],'lat':r['latitude'],'lon':r['longitude'],'name':r['name']})
     return data
   
   # On renvoie les informations d'un pays
-  def send_country(self,country):
+  def send_country(self,country,lang=''):
     # préparation de la requête SQL
     c = conn.cursor()
-    sql = 'SELECT * from europe_country WHERE wp=?'
+    sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
     # récupération de l'information (ou pas)
     c.execute(sql,(country,))
     r = c.fetchone()
