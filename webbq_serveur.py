@@ -4,8 +4,8 @@ import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
 
-lang_choix=["fr","de","zh"]
-lang=""
+lang_choix=['fr','de','zh']
+lang=''
 client_nom= json.dumps({
             'given_name': 'Visteur', \
             'family_name': '001' \
@@ -23,6 +23,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
   def do_GET(self):
     global lang
     self.init_params()
+    print(self.path)
     # prénom et nom dans la chaîne de requête
     if self.path_info[0] == "toctoc":
       self.send_toctoc()
@@ -39,10 +40,12 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     elif self.path_info[0] == "service":
       self.send_html('<p>Path info : <code>{}</p><p>Chaîne de requête : <code>{}</code></p>' \
           .format('/'.join(self.path_info),self.query_string));
-    elif self.path_info[0] in lang_choix:
-      lang="_"+self.path_info[0]
-      self.path = "/"+self.path_info[1]
-      self.send_static()
+    elif self.path_info[0].lower() in lang_choix:
+      lang="_"+self.path_info.pop(0).lower()
+      self.path=""
+      for i in self.path_info:
+        self.path += ("/"+i)
+      self.do_GET()
     else:
       self.send_static()
 
@@ -87,9 +90,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     r = c.fetchall()
     # construction de la réponse
     data=[]
-    n=0
     for a in r:
-      n+=1
+      print(a[0])
       sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
       c.execute(sql,(a[0],))
       r = c.fetchone()

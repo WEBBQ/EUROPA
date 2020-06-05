@@ -18,13 +18,13 @@
     </head>
     <body>
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Europa</a>
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <input id="pays" list="browsers" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
             <datalist id="browsers"></datalist>
-            <button class="btn btn-outline-info my-2 my-sm-0" id="boutonpays">Search</button>
+            <button class="btn btn-outline-info my-2 my-sm-0" id="boutonpays"><span id="SEARCH">Search</span></button>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                   <span id="nom"></span>
@@ -40,64 +40,64 @@
                   <li class="nav-item">
                     <a id="buttonmenu1" class="nav-link" href="https://fr.wikipedia.org/wiki/europe">
                       <i class="fab fa-wikipedia-w"></i>
-                      Wikipedia
+                      <span id="WIKI">Wikipedia</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a id="buttonmenu2" class="nav-link" href="https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query">
                       <i class="fas fa-hotel"></i>
-                      Hotel
+                      <span id="HOTEL">Hotel</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a id="buttonmenu3" class="nav-link" href="https://artsandculture.google.com/search?q=europe">
                       <i class="fas fa-archway"></i>
-                      Art
+                      <span id="ART">Art</span>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="https://www.kiwi.com/fr/landing/-/-">
+                    <a id="buttonmenu5" class="nav-link" href="https://www.kiwi.com/fr/landing/-/-">
                       <i class="fas fa-bus"></i>
-                      Transport
+                      <span id="TRANSPORT">Transport</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a id="buttonmenu4" class="nav-link" href="https://guide.michelin.com/fr/fr/search?q=europe">
                       <i class="fas fa-utensils"></i>
-                      Food
+                      <span id="FOOD">Food</span>
                     </a>
                   </li>
                 </ul>
 
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                  <span>items 2</span>
+                  <span id="LANG">Language</span>
                   <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
                     <span data-feather="plus-circle"></span>
                   </a>
                 </h6>
                 <ul class="nav flex-column mb-2">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/homepage.html#" id="EN">
                       <span data-feather="file-text"></span>
-                        Autres
+                        ENGLISH
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/FR/homepage.html#" id="FR">
                       <span data-feather="file-text"></span>
-                        Autres
+                        FRANÇAIS
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/DE/homepage.html#" id="DE">
                       <span data-feather="file-text"></span>
-                        Autres
+                        DEUTSCH
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="/ZH/homepage.html#" id="ZH">
                       <span data-feather="file-text"></span>
-                        Autres
+                        简体中文
                     </a>
                   </li>
                 </ul>
@@ -106,7 +106,7 @@
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Map</h1>
+                <h1 class="h2"><span id="MAP">Map</span></h1>
                 <!--
                 <div class="btn-toolbar mb-2 mb-md-0">
                   <div class="btn-group mr-2">
@@ -123,7 +123,7 @@
 
               <div class="my-4 w-100" width="900" height="380" id="map"></div>
 
-              <h2 id="title_info">Informations</h2>
+              <h2 id="title_info"><span id="INFO">Informations</span></h2>
               <div id="table_info" class="table-responsive">
                 <table class="table table-striped table-sm">
                   <tbody>
@@ -148,13 +148,24 @@
     </body>
     <script type="text/javascript" src="flags.js"></script>
     <script>
+        var lang_a="en";
+        var lang_b="com";
+        var wel_t="Welcome! ";
+        var eur_t="Europe | ";
+        var uan_t="You're at";
+        var dis_t="Distance from";
+        var off_t="Officiel Name";
+        var cap_t="Capital";
+        var lat_t="Latitude";
+        var lon_t="Longitude";
+        var alt_t="We could find this country in Europa!";
         var conseigne=0;
         function getnom() {
             var xhr = new XMLHttpRequest();
             xhr.onload =function(){
                 var data = JSON.parse(this.responseText);
                 // affichage dans la zone 'nom' du prénom et du nom récupéré par l'appel au serveur
-                document.getElementById('nom').innerHTML ='Welcome! ' + data.given_name + ' ' + data.family_name;
+                document.getElementById('nom').innerHTML =wel_t + "&nbsp"+ data.given_name + ' ' + data.family_name;
             };
             xhr.open('GET','/nom',true);
             xhr.send();
@@ -193,12 +204,6 @@
             codes.find(o=>o.name.match(RegExp(countryName,'i'))).code.toLowerCase()+".svg";
         }
         
-        var offna2=document.getElementById('offn2');
-        var capi2=document.getElementById('cap2');
-        var latit2=document.getElementById('lati2');
-        var longi2=document.getElementById('long2');
-        var paysn2=document.getElementById('paysname2');
-        
         function map_init () {
             var xhr1 = new XMLHttpRequest();
             if(conseigne==2){
@@ -214,12 +219,12 @@
                         var name_wp=data[n].id.toUpperCase();
                         if(name_wp==name_a){
                             L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
-                            .bindPopup("Europe | "+data[n].name+"<br>"+"You're at"+"&nbsp"+"<b>"+name_a+"</b>")
+                            .bindPopup(eur_t+data[n].name+"<br>"+uan_t+"&nbsp"+"<b>"+name_a+"</b>")
                             .addEventListener('dblclick',Mark)
                             .idnom=data[n].id;
                         }else{
                             L.marker([data[n].lat,data[n].lon]).addTo(map)
-                            .bindPopup("Europe | "+data[n].name+"<br>"+"Distance from"+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+                            .bindPopup(eur_t+data[n].name+"<br>"+dis_t+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
                             .addEventListener('dblclick',Mark)
                             .idnom=data[n].id;
                         } 
@@ -237,7 +242,7 @@
                         // attachement d'une popup, capture de l'événement 'clic'
                         // ajout d'une propriété personnalisée au marqueur
                         L.marker([data[n].lat,data[n].lon]).addTo(map)
-                        .bindPopup("Europe | "+data[n].name)
+                        .bindPopup(eur_t+data[n].name)
                         .addEventListener('dblclick',Mark)
                         .idnom=data[n].id;
                         lis=lis+"<option value="+data[n].id+">"; 
@@ -255,9 +260,22 @@
 
         window.onload = function(){
             if(conseigne==0){
+                var la=window.location.toString().split("/")[3];
                 getnom();
                 map_init();
                 conseigne=1;
+                if(la=="FR"){
+                  tofr();
+                }
+                else if(la=="DE"){
+                  tode();
+                }
+                else if(la=="ZH"){
+                  tozh();
+                }
+                else{
+                  toen();
+                }
             }
             getTime();
         }
@@ -275,11 +293,16 @@
 
             var name = document.getElementById('pays').value;
             
-            var link1="https://fr.wikipedia.org/wiki/"+name.toLowerCase();
-            var link2="https://www.airbnb.fr/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            var link1="https://"+lang_a+".wikipedia.org/wiki/"+name.toLowerCase();
+            var link2="https://www.airbnb."+lang_b+"/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
             var link3="https://artsandculture.google.com/search?q="+name.toLowerCase();
-            var link4="https://guide.michelin.com/fr/fr/search?q="+name.toLowerCase();
-
+            var link4="https://guide.michelin.com/"+lang_a+"/"+lang_a+"/search?q="+name.toLowerCase();
+            if(lang_a=="en"){
+                link2="https://www.airbnb.co.uk/s/"+name.toLowerCase()+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            }
+            if(lang_a=="zh"){
+                link4="https://guide.michelin.com/sg/zh_CN/search?q="+name.toLowerCase();
+            }
             var xhr2 = new XMLHttpRequest();
             xhr2.onload =function(){
                 try{
@@ -287,10 +310,10 @@
                     document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(c)+'">').join('');
                     document.getElementById("title_info").style.display = "block";
                     document.getElementById("table_info").style.display = "block";
-                    offna.innerHTML = '<b>Officiel Name</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
-                    capi.innerHTML = '<b>Capital</b>'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
-                    latit.innerHTML = '<b>Latitude</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
-                    longi.innerHTML = '<b>Longitude</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
+                    offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
+                    capi.innerHTML = '<b>'+cap_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
+                    latit.innerHTML = '<b>'+lat_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
+                    longi.innerHTML = '<b>'+lon_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
                     paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
                    
                     document.getElementById('buttonmenu1').setAttribute("href",link1);
@@ -302,12 +325,127 @@
                     map_init();
                     conseigne=1;
                 }catch(err){
-                    alert("We could find this country in Europa!");
+                    alert(alt_t);
                 }
             }
             xhr2.open('GET','/country/'+name,true);
             xhr2.send();
         }
+    document.getElementById('EN').addEventListener('click', toen,false);
+    document.getElementById('FR').addEventListener('click', tofr,false);
+    document.getElementById('DE').addEventListener('click', tode,false);
+    document.getElementById('ZH').addEventListener('click', tozh,false);
+    function toen(){
+        lang_a="en";
+        lang_b="com"
+        wel_t="Welcome! ";
+        eur_t="Europe | ";
+        uan_t="You're at";
+        dis_t="Distance from";
+        off_t="Officiel Name";
+        cap_t="Capital";
+        lat_t="Latitude";
+        lon_t="Longitude";
+        alt_t="We could find this country in Europa!";
+        document.getElementById('SEARCH').innerHTML="Search";
+        document.getElementById('WIKI').innerHTML="Wikipedia";
+        document.getElementById('HOTEL').innerHTML="Hotel";
+        document.getElementById('ART').innerHTML="Art";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Food";
+        document.getElementById('LANG').innerHTML="Language";
+        document.getElementById('MAP').innerHTML="Map";
+        document.getElementById('INFO').innerHTML="Informations";
+        document.getElementById('buttonmenu1').setAttribute("href","https://en.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.co.uk/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/en/landing/-/-");
+        map_init();
+        conseigne=0;
+    }
+    function tofr(){
+        lang_a="fr";
+        lang_b="fr";
+        wel_t="Bienvenue ! ";
+        eur_t="Europe | ";
+        uan_t="Vous êtes à";
+        dis_t="Distance de";
+        off_t="Nom officiel";
+        cap_t="Capital";
+        lat_t="Latitude";
+        lon_t="Longitude";
+        alt_t="Nous n'arrivons pas à trouver ce pays dans Europa!";
+        document.getElementById('SEARCH').innerHTML="Chercher";
+        document.getElementById('WIKI').innerHTML="Wikipédia";
+        document.getElementById('HOTEL').innerHTML="Hôtel";
+        document.getElementById('ART').innerHTML="Art";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Gastronomie";
+        document.getElementById('LANG').innerHTML="Langue";
+        document.getElementById('MAP').innerHTML="Plan";
+        document.getElementById('INFO').innerHTML="Informations";
+        document.getElementById('buttonmenu1').setAttribute("href","https://fr.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/fr/fr/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/fr/landing/-/-");
+        map_init();
+        conseigne=0;
+    }
+    function tode(){
+        lang_a="de";
+        lang_b="de";
+        wel_t="Willkommen! ";
+        eur_t="Europe | ";
+        uan_t="Sie sind in";
+        dis_t="Entfernung von";
+        off_t="Offizieller Name";
+        cap_t="Kapital";
+        lat_t="Breite";
+        lon_t="Länge";
+        alt_t="Wir konnten dieses Land in Europa finden!";
+        document.getElementById('SEARCH').innerHTML="Suchen";
+        document.getElementById('WIKI').innerHTML="Wikipedia";
+        document.getElementById('HOTEL').innerHTML="Hotel";
+        document.getElementById('ART').innerHTML="Art";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Gastronomie";
+        document.getElementById('LANG').innerHTML="In anderen Sprachen";
+        document.getElementById('MAP').innerHTML="Karte";
+        document.getElementById('INFO').innerHTML="Information";
+        document.getElementById('buttonmenu1').setAttribute("href","https://de.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.de/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/de/de/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/de/landing/-/-");
+        conseigne=0;
+    }
+    function tozh(){
+        lang_a="zh";
+        lang_b="cn";
+        wel_t="欢迎！ ";
+        eur_t="欧洲 | ";
+        uan_t="您正处于";
+        dis_t="距";
+        off_t="官方名称";
+        cap_t="行政首都";
+        lat_t="经度位置";
+        lon_t="纬度位置";
+        alt_t="我们未能在Europa上找到该国家！";
+        document.getElementById('SEARCH').innerHTML="搜索";
+        document.getElementById('WIKI').innerHTML="维基百科";
+        document.getElementById('HOTEL').innerHTML="酒店民宿";
+        document.getElementById('ART').innerHTML="当地艺术";
+        document.getElementById('TRANSPORT').innerHTML="交通出行";
+        document.getElementById('FOOD').innerHTML="特色美食";
+        document.getElementById('LANG').innerHTML="语言";
+        document.getElementById('MAP').innerHTML="地图";
+        document.getElementById('INFO').innerHTML="具体信息";
+        document.getElementById('buttonmenu1').setAttribute("href","https://zh.wikipedia.org/wiki/欧洲");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.cn/s/欧洲/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
+        conseigne=0;
+    }
+
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
