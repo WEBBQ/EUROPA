@@ -329,9 +329,11 @@
             xhr2.onload =function(){
                 try{
                     var data = JSON.parse(this.responseText);
-                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
-                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
                     document.getElementById('link123').innerHTML='<audio controls><source src="https://anthemworld.com/~anthemwo/themesongs/'+data.id+'.mp3" type="audio/mpeg"><source></audio>';
+                    if(data.id=="Azerbaidjan"){
+                    	data.id="Azerbaijan";
+                    }
+                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
                     document.getElementById("title_info").style.display = "block";
                     document.getElementById("table_info").style.display = "block";
                     offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
