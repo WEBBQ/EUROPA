@@ -101,9 +101,15 @@
                     </a>
                   </li>
                   <li class="nav-item">
+                    <a class="nav-link" href="/WU/homepage.html#" id="WU">
+                      <img src="images/zh.png" class="img_lang">
+                      <span data-feather="file-text">吴地闲话</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="/AR/homepage.html#" id="AR">
                       <img src="images/ar.png" class="img_lang">
-                      <span data-feather="file-text">العربية</span>
+                      <span data-feather="file-text">العربية<</span>
                     </a>
                   </li>
                 </ul>
@@ -286,6 +292,9 @@
                 else if(la=="AR"){
                   toar();
                 }
+                else if(la=="WU"){
+                  towu();
+                }
                 else{
                   toen();
                 }
@@ -353,6 +362,7 @@
     document.getElementById('FR').addEventListener('click', tofr,false);
     document.getElementById('DE').addEventListener('click', tode,false);
     document.getElementById('ZH').addEventListener('click', tozh,false);
+    document.getElementById('WU').addEventListener('click', towu,false);
     document.getElementById('AR').addEventListener('click', toar,false);
 
     function toen(){
@@ -486,7 +496,7 @@
         lat_t="经度位置";
         lon_t="纬度位置";
         alt_t="我们未能在Europa上找到该国家！";
-        document.getElementById('SEARCH').innerHTML="搜索";
+        document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜索'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="酒店民宿";
         document.getElementById('ART').innerHTML="当地艺术";
@@ -504,7 +514,36 @@
         conseigne=0;
         map_init();
     }
-
+    function towu(){
+        lang_a="zh";
+        lang_b="cn";
+        wel_t="欢迎！ ";
+        eur_t="欧洲 | ";
+        uan_t="侬来勒";
+        dis_t="距";
+        off_t="官方名头";
+        cap_t="行政首都";
+        lat_t="经度几何";
+        lon_t="纬度几何";
+        alt_t="阿拉勿能来勒Europa上头寻着搿国家！";
+        document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜寻'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
+        document.getElementById('WIKI').innerHTML="维基百科";
+        document.getElementById('HOTEL').innerHTML="住啥人家";
+        document.getElementById('ART').innerHTML="看西洋镜";
+        document.getElementById('TRANSPORT').innerHTML="逛六城门";
+        document.getElementById('FOOD').innerHTML="吃好物什";
+        document.getElementById('LANG').innerHTML="闲话版本";
+        document.getElementById('MAP').innerHTML="地图";
+        document.getElementById('INFO').innerHTML="皮里阳秋";
+        document.getElementById('buttonmenu1').setAttribute("href","https://zh.wikipedia.org/wiki/欧洲");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.cn/s/欧洲/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
+        conseigne=0;
+        map_init();
+    }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -4,7 +4,7 @@ import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
 
-lang_choix=['en','fr','de','zh','ar']
+lang_choix=['wu','en','fr','de','zh','ar']
 lang='_en'
 client_nom= json.dumps({
             'given_name': 'Visteur', \
@@ -42,6 +42,8 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
             .format('/'.join(self.path_info),self.query_string));
       elif self.path_info[0].lower() in lang_choix:
         lang="_"+self.path_info.pop(0).lower()
+        if lang=="_wu":
+          lang="_zh"
         self.path=""
         for i in self.path_info:
           self.path += ("/"+i)
