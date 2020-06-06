@@ -16,7 +16,7 @@
         <script src="https://kit.fontawesome.com/2f8c6e89bd.js" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
-    <body>
+    <bod id="body">
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,9 +35,7 @@
         <div class="container-fluid">
           <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-              <div class="sidebar-sticky pt-3"style="background: linear-gradient(60deg,transparent, orange), url('europa_element.jpg');width: 100%;background-size: cover; background-position: 78%;">
-            </br></br></br>
-                
+              <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                   <li class="nav-item">
                     <a id="buttonmenu1" class="nav-link" href="https://fr.wikipedia.org/wiki/europe">
@@ -70,7 +68,7 @@
                     </a>
                   </li>
                 </ul>
-            </br></br></br></br></br></br>
+
                 <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                   <span id="LANG">Language</span>
                   <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
@@ -80,36 +78,41 @@
                 <ul class="nav flex-column mb-2">
                   <li class="nav-item">
                     <a class="nav-link" href="/EN/homepage.html#" id="EN">
-                      <span data-feather="file-text"></span>
-                        ENGLISH
+                      <img src="images/en.png" class="img_lang">
+                      <span data-feather="file-text">ENGLISH</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/FR/homepage.html#" id="FR">
-                      <span data-feather="file-text"></span>
-                        FRANÇAIS
+                        <img src="images/fr.png" class="img_lang">
+                      <span data-feather="file-text">FRANÇAIS</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/DE/homepage.html#" id="DE">
-                      <span data-feather="file-text"></span>
-                        DEUTSCH
+                      <img src="images/de.png" class="img_lang">
+                      <span data-feather="file-text">DEUTSCH</span>
                     </a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="/ZH/homepage.html#" id="ZH">
-                      <span data-feather="file-text"></span>
-                        简体中文
+                      <img src="images/zh.png" class="img_lang">
+                      <span data-feather="file-text">简体中文</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/AR/homepage.html#" id="AR">
+                      <img src="images/ar.png" class="img_lang">
+                      <span data-feather="file-text">العربية</span>
                     </a>
                   </li>
                 </ul>
-            </br></br></br></br></br></br></br></br></br></br></br></br></br>
               </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4"><div style="background: url(europa_fate.jpg);background-size: cover;background-position: 20% 20%;">
-              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom" style="background-color: white;">
-                <h1 class="h2"><span id="MAP">Map</span></br></h1>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"><span id="MAP">Map</span></h1>
                 <!--
                 <div class="btn-toolbar mb-2 mb-md-0">
                   <div class="btn-group mr-2">
@@ -123,10 +126,9 @@
                 </div>
                 -->
               </div>
+
               <div class="my-4 w-100" width="900" height="380" id="map"></div>
-          </br>
-          </div>
-              </br></br>
+
               <h2 id="title_info"><span id="INFO">Informations</span></h2>
               <div id="link123"></div>
               <div id="table_info" class="table-responsive">
@@ -281,6 +283,9 @@
                 else if(la=="ZH"){
                   tozh();
                 }
+                else if(la=="AR"){
+                  toar();
+                }
                 else{
                   toen();
                 }
@@ -338,13 +343,18 @@
                     alert(alt_t);
                 }
             }
-            xhr2.open('GET','/country/'+name,true);
+            xhr2.open('GET','/country/'+ encodeURIComponent(name),true);
+            console.log(encodeURIComponent(name));
+            console.log(name);
+
             xhr2.send();
         }
     document.getElementById('EN').addEventListener('click', toen,false);
     document.getElementById('FR').addEventListener('click', tofr,false);
     document.getElementById('DE').addEventListener('click', tode,false);
     document.getElementById('ZH').addEventListener('click', tozh,false);
+    document.getElementById('AR').addEventListener('click', toar,false);
+
     function toen(){
         lang_a="en";
         lang_b="com"
@@ -370,6 +380,39 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.co.uk/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/en/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
+        conseigne=0;
+        map_init();
+    }
+    function toar(){
+        lang_a="ar";
+        lang_b="com"
+        wel_t="مرحبا  !";
+        eur_t=" أوروبا  |";
+        uan_t="أنت في ";
+        dis_t="المسافة من";
+        off_t="الإسم الرسمي";
+        cap_t="العاصمة";
+        lat_t="خط العرض";
+        lon_t="خط الطول";
+        alt_t="لم نستطع إيجاد ههذا البلد في أوروبا";
+        document.getElementById('SEARCH').innerHTML="بحث";
+        document.getElementById('WIKI').innerHTML="ويكيبيديا";
+        document.getElementById('HOTEL').innerHTML="فنادق";
+        document.getElementById('ART').innerHTML="الفن";
+        document.getElementById('TRANSPORT').innerHTML="المواصالات";
+        document.getElementById('FOOD').innerHTML="الطعام";
+        document.getElementById('LANG').innerHTML="اللغة";
+        document.getElementById('MAP').innerHTML="الخريطة";
+        document.getElementById('INFO').innerHTML="معلومات";
+        document.getElementById('buttonmenu1').setAttribute("href","https://ar.wikipedia.org/wiki/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7");
+        document.getElementById('buttonmenu2').setAttribute("href","https://ar.airbnb.com/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query&_set_bev_on_new_domain=1591393619_NGZmOWE2NGJhMDZi");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/ar/landing/-/-/");
+        document.documentElement.style.direction="rtl";
+        document.getElementById('body').style.textAlign="right";
+
         conseigne=0;
         map_init();
     }
@@ -398,6 +441,7 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/fr/fr/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/fr/landing/-/-");
+        document.documentElement.style.direction="ltr";
         conseigne=0;
         map_init();
     }
@@ -426,6 +470,7 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.de/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/de/de/search?q=europe");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/de/landing/-/-");
+        document.documentElement.style.direction="ltr";
         conseigne=0;
         map_init();
     }
@@ -454,6 +499,8 @@
         document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.cn/s/欧洲/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
         document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
         document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
         conseigne=0;
         map_init();
     }

@@ -4,7 +4,7 @@ import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
 
-lang_choix=['en','fr','de','zh']
+lang_choix=['en','fr','de','zh','ar']
 lang='_en'
 client_nom= json.dumps({
             'given_name': 'Visteur', \
@@ -24,29 +24,32 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     global lang
     self.init_params()
     # prénom et nom dans la chaîne de requête
-    if self.path_info[0] == "toctoc":
-      self.send_toctoc()
-    elif self.path_info[0] == "nom":
-      self.send_nom()
-    # requete location - retourne la liste de lieux et leurs coordonnées géogrpahiques
-    elif self.path_info[0] == "location":
-      data=self.get_countries(lang)
-      self.send_json(data)
-    # le chemin d'accès commence par /country et se poursuit par un nom de pays
-    elif self.path_info[0] == 'country' and len(self.path_info) > 1:
-      self.send_country(self.path_info[1],lang)
-    # requête générique
-    elif self.path_info[0] == "service":
-      self.send_html('<p>Path info : <code>{}</p><p>Chaîne de requête : <code>{}</code></p>' \
-          .format('/'.join(self.path_info),self.query_string));
-    elif self.path_info[0].lower() in lang_choix:
-      lang="_"+self.path_info.pop(0).lower()
-      self.path=""
-      for i in self.path_info:
-        self.path += ("/"+i)
-      self.do_GET()
+    if len(self.path_info)>0:
+      if self.path_info[0] == "toctoc":
+        self.send_toctoc()
+      elif self.path_info[0] == "nom":
+        self.send_nom()
+      # requete location - retourne la liste de lieux et leurs coordonnées géogrpahiques
+      elif self.path_info[0] == "location":
+        data=self.get_countries(lang)
+        self.send_json(data)
+      # le chemin d'accès commence par /country et se poursuit par un nom de pays
+      elif self.path_info[0] == 'country' and len(self.path_info) > 1:
+        self.send_country(self.path_info[1],lang)
+      # requête générique
+      elif self.path_info[0] == "service":
+        self.send_html('<p>Path info : <code>{}</p><p>Chaîne de requête : <code>{}</code></p>' \
+            .format('/'.join(self.path_info),self.query_string));
+      elif self.path_info[0].lower() in lang_choix:
+        lang="_"+self.path_info.pop(0).lower()
+        self.path=""
+        for i in self.path_info:
+          self.path += ("/"+i)
+        self.do_GET()
+      else:
+        self.send_static()
     else:
-      self.send_static()
+      self.send_error(404,'Country not found')
 
   #
   # On envoie un document le nom et le prénom

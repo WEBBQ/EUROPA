@@ -87,3 +87,12 @@ a.delete:hover {
 .nav-item a:hover{
   color:#494e53;
 }
+.img_lang {
+    width: 18px;
+}
+#nom, #timeP{
+  display: inline-block;
+}
+#timeP{
+  direction: ltr;
+}
