@@ -3,6 +3,7 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
+import wptools
 
 lang_choix=['wu','en','fr','de','zh','ar']
 lang='_en'
@@ -10,6 +11,55 @@ client_nom= json.dumps({
             'given_name': 'Visteur', \
             'family_name': '001' \
              })
+
+def treat(number):
+    print(number)
+    if len(str(number).split(".")[0])>12:
+        return[float(number)/1000000000000,"trillion"]
+    elif len(str(number).split(".")[0])>9:
+        return[float(number)/1000000000,"billion"]
+    elif len(str(number).split(".")[0])>6:
+        return[float(number)/1000000,"million"]
+    elif len(str(number).split(".")[0])>3:
+        return[float(number)/1000,"thousand"]
+    else:
+        return[float(number),""]
+      
+def get_data(country):
+    c = conn.cursor()
+    sql = 'SELECT * from europe_country_info WHERE wp=?'
+    # récupération de l'information (ou pas)
+    c.execute(sql,(country,))
+    info = c.fetchone()
+    if info == None:
+      self.send_error(404,'Country not found')
+    # on génère un document au format html
+    else:
+      ar=247-int(info['area_rank'])+1
+      po=247-int(info['population_estimate_rank'])+1
+      gd=247-int(info['GDP_nominal_rank'])+1
+      hd=247-int(info['HDI_rank'])+1
+      [area,area_u]=treat(info['area_km2'])
+      [pop,pop_u]=treat(info['population_estimate'])
+      if pop_u!="":
+          pop_u="( "+pop_u+" )"
+      [gdp,gdp_u]=treat(info['GPA'])
+      Gini=float(info['Gini'])
+      if Gini>0:
+          gi=100-Gini
+          Gini=str(round(Gini,2))
+      else:
+          gi=0
+          Gini="NaN"
+      HDI=float(info['HDI'])
+      if HDI>0:
+          HDI=str(round(HDI,2))
+      else:
+          HDI="NaN"
+      return [["Area("+area_u+" km^2) | "+str(round(area,2)),"Population"+pop_u+" | "+str(round(pop,2)),\
+               "GDP("+gdp_u+" $) | "+str(round(gdp,2)),"Gini | "+Gini,"HDI | "+HDI],\
+              [ar,po,gd,gi,hd]]
+
 
 # définition du handler
 class RequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -121,13 +171,24 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       self.send_error(404,'Country not found')
     # on génère un document au format html
     else:
+      cn=r['wp_en']
+      if cn=="Azerbaidjan":
+        cn="Azerbaijan"
+      if cn=="Macedonia":
+        cn="North Macedonia"
+      if cn=="Bosnia-Herzegovina":
+        cn="Bosnia and Herzegovina"
+      da=get_data(cn)
+      print(da[0])
       body = json.dumps({
         'wp':r['wp'],\
         'offname':r['name'],\
         'capital':r['capital'],\
         'lat':r['latitude'],\
         'lon':r['longitude'],\
-        'id':r['wp_en']
+        'id':r['wp_en'],\
+        'information_head':da[0],\
+        'information':da[1]\
         })
       # on envoie la réponse
       headers = [('Content-Type','application/json')]
