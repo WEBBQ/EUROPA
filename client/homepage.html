@@ -333,6 +333,12 @@
                     if(data.id=="Azerbaidjan"){
                     	data.id="Azerbaijan";
                     }
+                    if(data.id=="Macedonia"){
+                    	data.id="North Macedonia";
+                    }
+                    if(data.id=="Kosovo"){
+                    	data.id="Republic of Kosovo";
+                    }
                     document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
                     document.getElementById("title_info").style.display = "block";
                     document.getElementById("table_info").style.display = "block";
