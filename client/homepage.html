@@ -3,6 +3,10 @@
     <head>
         <title>Europa</title>
         <meta charset='utf-8'>
+        <style type="text/css">
+    		*{margin: 0;padding: 0}
+    		#myEchart{height: 100%}
+  		</style>
         <link rel="stylesheet" type="text/css" href="leaflet.css" /> 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
@@ -16,7 +20,7 @@
         <script src="https://kit.fontawesome.com/2f8c6e89bd.js" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     </head>
-    <bod id="body">
+    <body id="body">
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -141,15 +145,19 @@
                 <table class="table table-striped table-sm">
                   <tbody>
                     <tr>
-                      <td id="flag"></td>
+                      <td id="flag" style="width: 25%;"></td>
+                      <td style="width: 5%;"></td>
                       <td id="info">
                         <div id="paysname"></div>
-                        <ul id="other_info">
-                          <li id="offn"></li>
-                          <li id="cap"></li>
-                          <li id="lati"></li>
-                          <li id="long"></li>
+                        <ul id="other_info" style="width: 30%">
+                          <li id="offn" style="width: 300%;font-size: 75%;"></li>
+                          <li id="cap" style="width: 300%;font-size: 75%;"></li>
+                          <li id="lati" style="width: 300%;font-size: 75%;"></li>
+                          <li id="long" style="width: 300%;font-size: 75%;"></li>
                         </ul>
+                      </td>
+                      <td style="width:50%;">
+                      	<div id="Laser" style="height: 280%;"></div>
                       </td>
                     </tr>
                   </tbody>
@@ -160,6 +168,8 @@
         </div>
     </body>
     <script type="text/javascript" src="flags.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
     <script>
         var lang_a="en";
         var lang_b="com";
@@ -172,6 +182,7 @@
         var lat_t="Latitude";
         var lon_t="Longitude";
         var alt_t="We couldn't find this country in Europe!";
+        var laser=document.getElementById("Laser");
         var conseigne=0;
         function getnom() {
             var xhr = new XMLHttpRequest();
@@ -310,6 +321,11 @@
         document.getElementById('boutonpays').addEventListener('click', paymod,false);
 
 
+        function drawlaser(ctx,mData,mW){
+			
+		}
+
+
         function paymod(){
             conseigne=2;
 
@@ -333,7 +349,17 @@
                     if(data.id=="Azerbaidjan"){
                     	data.id="Azerbaijan";
                     }
-                    document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
+                    if(data.id=="Macedonia"){
+                    	data.id="North Macedonia";
+                    }
+                    if(data.id=="Kosovo"){
+                    	data.id="Republic of Kosovo";
+                    }
+                    if(data.id=="United Kingdom"){
+                    	document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg">').join('');
+                    }else{
+                    	document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
+                    }
                     document.getElementById("title_info").style.display = "block";
                     document.getElementById("table_info").style.display = "block";
                     offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
@@ -341,7 +367,7 @@
                     latit.innerHTML = '<b>'+lat_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
                     longi.innerHTML = '<b>'+lon_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
                     paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
-                   
+                    var canvas = document.createElement('canvas');
                     document.getElementById('buttonmenu1').setAttribute("href",link1);
                     document.getElementById('buttonmenu2').setAttribute("href",link2);
                     document.getElementById('buttonmenu3').setAttribute("href",link3);
@@ -349,6 +375,69 @@
                    
                     map.setView([data.lat,data.lon], 4);
                     map_init();
+
+                    var myChart=echarts.init(laser);
+                    option={
+                    	color: ["#4587E7"],
+                    	tooltip: {},
+                    	radar: {
+                    		name: {
+                    			textStyle: {
+                    				color: "#333"
+                    			},
+                    			fontSize: 8
+                    		},
+                    		shape: "circle",
+                    		center:['50%','50%'],
+                    		radius:'80%',
+                    		triggerEvent:false,
+                    		indicator: [{
+                    			name:data.information_head[0],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:data.information_head[1],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:data.information_head[2],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:data.information_head[3],
+                    			max: 100,
+                    			min: 0
+                    		},
+                    		{
+                    			name:data.information_head[4],
+                    			max: 247,
+                    			min: 1
+                    		}]
+                    	},
+                    	series: [{
+                    		name: "Informations",
+                    		type: 'radar',
+                   			areaStyle: {
+                				opacity: 0.1
+                   			},
+                    		lineStyle:{
+                    			width: 1
+                    		},
+                    		data : [{
+                   				value: data.information,
+                   				name: document.getElementById('INFO').innerHTML
+                   			}]
+                   		}]
+                   	};
+                   	if (option && typeof option === "object"){
+                   		myChart.setOption(option,true);                   	
+                   	}
+                   	window.addEventListener("resize",function(){
+                   		myChart.resize();
+                   	});
                     conseigne=1;
                 }catch(err){
                     alert(alt_t);
@@ -359,7 +448,8 @@
             console.log(name);
 
             xhr2.send();
-        }
+    }
+
     document.getElementById('EN').addEventListener('click', toen,false);
     document.getElementById('FR').addEventListener('click', tofr,false);
     document.getElementById('DE').addEventListener('click', tode,false);
