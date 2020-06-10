@@ -11,21 +11,40 @@ client_nom= json.dumps({
             'given_name': 'Visteur', \
             'family_name': '001' \
              })
+unit={"_en":["trillion ","billion ","million ","thousand "],\
+      "_de":["Tausend ","Billion ","Million ","tausend "],\
+      "_fr":["trillion ","billion ","million ","mille "],\
+      "_ar":["تريليون ","بليون ","مليون ","ألف "],\
+      "_zh":["兆 ","亿 ","千 ","百 "],\
+      }
 
 def treat(number):
-    print(number)
-    if len(str(number).split(".")[0])>12:
-        return[float(number)/1000000000000,"trillion "]
-    elif len(str(number).split(".")[0])>9:
-        return[float(number)/1000000000,"billion "]
-    elif len(str(number).split(".")[0])>6:
-        return[float(number)/1000000,"million "]
-    elif len(str(number).split(".")[0])>3:
-        return[float(number)/1000,"thousand "]
+    global lang
+    if lang !="_zh":
+        if len(str(number).split(".")[0])>12:
+            return[float(number)/1000000000000,unit[lang][0]]
+        elif len(str(number).split(".")[0])>9:
+            return[float(number)/1000000000,unit[lang][1]]
+        elif len(str(number).split(".")[0])>6:
+            return[float(number)/1000000,unit[lang][2]]
+        elif len(str(number).split(".")[0])>3:
+            return[float(number)/1000,unit[lang][3]]
+        else:
+            return[float(number),""]
     else:
-        return[float(number),""]
+        if len(str(number).split(".")[0])>12:
+            return[float(number)/1000000000000,unit[lang][0]]
+        elif len(str(number).split(".")[0])>8:
+            return[float(number)/100000000,unit[lang][1]]
+        elif len(str(number).split(".")[0])>4:
+            return[float(number)/10000,unit[lang][2]]
+        elif len(str(number).split(".")[0])>3:
+            return[float(number)/1000,unit[lang][3]]
+        else:
+            return[float(number),""]
       
 def get_data(country):
+    global lang
     c = conn.cursor()
     sql = 'SELECT * from europe_country_info WHERE wp=?'
     # récupération de l'information (ou pas)
@@ -56,9 +75,16 @@ def get_data(country):
           HDI=str(round(HDI,2))
       else:
           HDI="NaN"
-      return [[" | "+str(round(area,2))+" "+area_u+"km^2"," | "+str(round(pop,2))+" "+pop_u,\
-               " | "+str(round(gdp,2))+" "+gdp_u+"$"," | "+Gini," | "+HDI],\
-              [ar,po,gd,gi,hd]]
+      if lang in ["_fr","_de"]:
+          Gini=Gini.replace(".",",")
+          HDI=HDI.replace(".",",")
+          return [[" | "+str(round(area,2)).replace(".",",")+" "+area_u+"km^2"," | "+str(round(pop,2)).replace(".",",")+" "+pop_u,\
+                   " | "+str(round(gdp,2)).replace(".",",")+" "+gdp_u+"$"," | "+Gini," | "+HDI],\
+                  [ar,po,gd,hd,gi]]
+      else:
+          return [[" | "+str(round(area,2))+" "+area_u+"km^2"," | "+str(round(pop,2))+" "+pop_u,\
+                   " | "+str(round(gdp,2))+" "+gdp_u+"$"," | "+Gini," | "+HDI],\
+                  [ar,po,gd,hd,gi]]
 
 
 # définition du handler

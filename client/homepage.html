@@ -165,73 +165,6 @@
             </main>
           </div>
         </div>
-      <!-- Footer -->
-      <footer class="page-footer font-small unique-color-dark">
-          <div class="container text-center text-md-left mt-5">
-            <!-- Grid row -->
-            <div class="row mt-3">
-              <!-- Grid column -->
-              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                <!-- Content -->
-                <img src="images/ecl.png" id="logo">
-              </div>
-              <!-- Grid column -->
-              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Links 1</h6>
-                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <p>
-                  <a href="#!">1</a>
-                </p>
-                <p>
-                  <a href="#!">2</a>
-                </p>
-                <p>
-                  <a href="#!">3</a>
-                </p>
-                <p>
-                  <a href="#!">4</a>
-                </p>
-              </div>
-              <!-- Grid column -->
-              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Created by</h6>
-                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <p>
-                  user
-                </p>
-                <p>
-                  user
-                </p>
-                <p>
-                  user
-                </p>
-                <p>
-                  user
-                </p>
-              </div>
-              <!-- Grid column -->
-              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Contact</h6>
-                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <p>
-                  <i class="fas fa-home mr-3"></i>contact</p>
-                <p>
-                  <i class="fas fa-envelope mr-3"></i>contact </p>
-                <p>
-                  <i class="fas fa-phone mr-3"></i>contact</p>
-                <p>
-                  <i class="fas fa-print mr-3"></i>contact</p>
-              </div>
-              <!-- Grid column -->
-            </div>
-            <!-- Grid row -->
-          </div>
-
-        </footer>
-        <!-- Footer -->
     </body>
     <script type="text/javascript" src="flags.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -255,6 +188,7 @@
         var gdp="GDP";
         var hdi="HDI";
         var gni="Gini";
+        var po=".";
         function getnom() {
             var xhr = new XMLHttpRequest();
             xhr.onload =function(){
@@ -306,8 +240,8 @@
             var xhr1 = new XMLHttpRequest();
             if(conseigne==2){
                 var name_a=paysn.innerHTML.split(">")[1].split("<")[0];
-                var lat_a=latit.innerHTML.split(";")[2];
-                var lon_a=longi.innerHTML.split(";")[2];
+                var lat_a=latit.innerHTML.split(";")[2].replace(po,".");
+                var lon_a=longi.innerHTML.split(";")[2].replace(po,".");
                 xhr1.onload = function() {
                 var data = JSON.parse(this.responseText);
                     for ( n = 0; n < data.length; n++ ) {
@@ -322,7 +256,7 @@
                             .idnom=data[n].id;
                         }else{
                             L.marker([data[n].lat,data[n].lon]).addTo(map)
-                            .bindPopup(eur_t+data[n].name+"<br>"+dis_t+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString()+"km")
+                            .bindPopup(eur_t+data[n].name+"<br>"+dis_t+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString().replace(".",po)+"km")
                             .addEventListener('dblclick',Mark)
                             .idnom=data[n].id;
                         } 
@@ -435,8 +369,8 @@
                     document.getElementById("table_info").style.display = "block";
                     offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
                     capi.innerHTML = '<b>'+cap_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
-                    latit.innerHTML = '<b>'+lat_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString();
-                    longi.innerHTML = '<b>'+lon_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString();
+                    latit.innerHTML = '<b>'+lat_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString().replace(".",po);
+                    longi.innerHTML = '<b>'+lon_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString().replace(".",po);
                     paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
                     var canvas = document.createElement('canvas');
                     document.getElementById('buttonmenu1').setAttribute("href",link1);
@@ -478,14 +412,14 @@
                     			min: 1
                     		},
                     		{
-                    			name:gni+data.information_head[3],
-                    			max: 100,
-                    			min: 0
-                    		},
-                    		{
                     			name:hdi+data.information_head[4],
                     			max: 247,
                     			min: 1
+                    		},
+                    		{
+                    			name:gni+data.information_head[3],
+                    			max: 100,
+                    			min: 0
                     		}]
                     	},
                     	series: [{
@@ -545,6 +479,7 @@
         gdp="GDP";
         hdi="HDI";
         gni="Gini";
+        po="."
         document.getElementById('SEARCH').innerHTML="Search";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -580,6 +515,7 @@
         gdp="الناتج المحلي الإجمالي";
         hdi="مؤشر التنمية البشرية";
         gni="معامل جيني";
+        po=".";
         document.getElementById('SEARCH').innerHTML="بحث";
         document.getElementById('WIKI').innerHTML="ويكيبيديا";
         document.getElementById('HOTEL').innerHTML="فنادق";
@@ -616,6 +552,7 @@
         gdp="PIB";
         hdi="IDH";
         gni="Gini";
+        po=",";
         document.getElementById('SEARCH').innerHTML="Chercher";
         document.getElementById('WIKI').innerHTML="Wikipédia";
         document.getElementById('HOTEL').innerHTML="Hôtel";
@@ -650,6 +587,7 @@
         gdp="Bruttoinlandsprodukt";
         hdi="Index der menschlichen Entwicklung";
         gni="Gini";
+        po=","
         document.getElementById('SEARCH').innerHTML="Suchen";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -684,6 +622,7 @@
         gdp="国内生产总值";
         hdi="幸福指数";
         gni="基尼系数";
+        po=".";
         document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜索'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="酒店民宿";
@@ -719,6 +658,7 @@
         gdp="国内生产总值";
         hdi="幸福指数";
         gni="基尼系数";
+        po=".";
         document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜寻'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="住啥人家";
