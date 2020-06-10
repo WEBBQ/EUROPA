@@ -99,6 +99,17 @@ a.delete:hover {
 #Laser{
   margin: 0 auto;
 }
+footer{
+  background: #272b30;
+    color: #fff;
+    padding-top: 23px;
+}
+#sidebarMenu {
+    padding-bottom: 120px;
+}
+#logo{
+   width: 190px;
+}
 @media screen and (max-width: 992px) {
   #table_info td {
       display: block;
