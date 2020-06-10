@@ -219,7 +219,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     for cn in pal:
       pan+=" "+"cn"
     country=pan
-    print(country)
     # préparation de la requête SQL
     c = conn.cursor()
     sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
@@ -227,7 +226,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     c.execute(sql,(country,))
     r = c.fetchone()
     # on n'a pas trouvé le pays demandé
-    print(r)
     if r == None:
       self.send_error(404,'Country not found')
     # on génère un document au format html
@@ -240,7 +238,6 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       if cn=="Bosnia-Herzegovina":
         cn="Bosnia and Herzegovina"
       da=get_data(cn)
-      print(da[0])
       body = json.dumps({
         'wp':r['wp'],\
         'offname':r['name'],\
