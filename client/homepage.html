@@ -156,7 +156,7 @@
                           <li id="long"></li>
                         </ul>
                       <td>
-                      	<div id="Laser" style="height: 300px;width: 300px;"></div>
+                      	<div id="Laser" style="height: 280px;width: 500px;"></div>
                       </td>
                     </tr>
                   </tbody>
@@ -250,6 +250,11 @@
         var alt_t="We couldn't find this country in Europe!";
         var laser=document.getElementById("Laser");
         var conseigne=0;
+        var area="Area";
+        var popu="Population";
+        var gdp="GDP";
+        var hdi="HDI";
+        var gni="Gini";
         function getnom() {
             var xhr = new XMLHttpRequest();
             xhr.onload =function(){
@@ -458,27 +463,27 @@
                     		radius:'80%',
                     		triggerEvent:false,
                     		indicator: [{
-                    			name:data.information_head[0],
+                    			name:area+data.information_head[0],
                     			max: 247,
                     			min: 1
                     		},
                     		{
-                    			name:data.information_head[1],
+                    			name:popu+data.information_head[1],
                     			max: 247,
                     			min: 1
                     		},
                     		{
-                    			name:data.information_head[2],
+                    			name:gdp+data.information_head[2],
                     			max: 247,
                     			min: 1
                     		},
                     		{
-                    			name:data.information_head[3],
+                    			name:gni+data.information_head[3],
                     			max: 100,
                     			min: 0
                     		},
                     		{
-                    			name:data.information_head[4],
+                    			name:hdi+data.information_head[4],
                     			max: 247,
                     			min: 1
                     		}]
@@ -535,6 +540,11 @@
         lat_t="Latitude";
         lon_t="Longitude";
         alt_t="We couldn't find this country in Europa!";
+        area="Area";
+        popu="Population";
+        gdp="GDP";
+        hdi="HDI";
+        gni="Gini";
         document.getElementById('SEARCH').innerHTML="Search";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -565,6 +575,11 @@
         lat_t="خط العرض";
         lon_t="خط الطول";
         alt_t="لم نستطع إيجاد ههذا البلد في أوروبا";
+        area="المساحة";
+        popu="التعداد السكاني";
+        gdp="الناتج المحلي الإجمالي";
+        hdi="مؤشر التنمية البشرية";
+        gni="معامل جيني";
         document.getElementById('SEARCH').innerHTML="بحث";
         document.getElementById('WIKI').innerHTML="ويكيبيديا";
         document.getElementById('HOTEL').innerHTML="فنادق";
@@ -596,6 +611,11 @@
         lat_t="Latitude";
         lon_t="Longitude";
         alt_t="Nous n'arrivons pas à trouver ce pays dans Europa!";
+        area="Superficie";
+        popu="Population";
+        gdp="PIB";
+        hdi="IDH";
+        gni="Gini";
         document.getElementById('SEARCH').innerHTML="Chercher";
         document.getElementById('WIKI').innerHTML="Wikipédia";
         document.getElementById('HOTEL').innerHTML="Hôtel";
@@ -625,6 +645,11 @@
         lat_t="Breitengrad";
         lon_t="Längengrad";
         alt_t="Wir konnten dieses Land in Europa nicht finden!";
+        area="Fläche";
+        popu="Einwohnerzahl";
+        gdp="Bruttoinlandsprodukt";
+        hdi="Index der menschlichen Entwicklung";
+        gni="Gini";
         document.getElementById('SEARCH').innerHTML="Suchen";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -654,6 +679,11 @@
         lat_t="经度位置";
         lon_t="纬度位置";
         alt_t="我们未能在Europa上找到该国家！";
+        area="国土面积";
+        popu="人口";
+        gdp="国内生产总值";
+        hdi="幸福指数";
+        gni="基尼系数";
         document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜索'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="酒店民宿";
@@ -684,6 +714,11 @@
         lat_t="经度几何";
         lon_t="纬度几何";
         alt_t="阿拉勿能来勒Europa上头寻着搿国家！";
+        area="方圆";
+        popu="人口";
+        gdp="国内生产总值";
+        hdi="幸福指数";
+        gni="基尼系数";
         document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜寻'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="住啥人家";
