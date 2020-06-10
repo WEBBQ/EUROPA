@@ -3,7 +3,6 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
-import wptools
 import urllib
 import requests
 from bs4 import BeautifulSoup
