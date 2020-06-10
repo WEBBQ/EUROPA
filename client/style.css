@@ -51,7 +51,7 @@ a.delete:hover {
 }
 #flag, #flag2 {
     width: 250px;
-    padding: 8px;
+    vertical-align: middle;
 }
 #info, #info2 {
    padding-left: 18px;
@@ -96,3 +96,12 @@ a.delete:hover {
 #timeP{
   direction: ltr;
 }
+#Laser{
+  margin: 0 auto;
+}
+@media screen and (max-width: 992px) {
+  #table_info td {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+     }
