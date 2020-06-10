@@ -39,7 +39,7 @@ def get_link(country):
             anchors = g.find_all('a')
             try:
                 if anchors:
-                    link = anchors[0]['href']
+                    link = "https://news.google.com"+str(anchors[0]['href'])[1:]
                     title = g.find('h3').text
                     item = {
                         "title": title,
