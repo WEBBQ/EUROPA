@@ -415,6 +415,7 @@
             if(lang_a=="zh"){
                 link4="https://guide.michelin.com/sg/zh_CN/search?q="+name;
             }
+            document.documentElement.scrollTop=0;
             dialog.classList.add('show');
             var xhr2 = new XMLHttpRequest();
             xhr2.onload =function(){
