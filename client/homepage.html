@@ -19,8 +19,15 @@
           <!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
         <script src="https://kit.fontawesome.com/2f8c6e89bd.js" crossorigin="anonymous"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     </head>
     <body id="body">
+	    <div id="dialog">
+	        <div class="box">
+	            <h1>Tempora mutantur, nos et mutamur in illis</h1>
+	        </div>
+	    </div>
+
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
             <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +43,7 @@
                 </li>
             </ul>
         </nav>
+
         <div class="container-fluid">
           <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
@@ -119,7 +127,6 @@
                 </ul>
               </div>
             </nav>
-
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
               <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2"><span id="MAP">Map</span></h1>
@@ -163,6 +170,7 @@
                 </table>
               </div>
             </main>
+        	</div>
           </div>
         </div>
               <!-- Footer -->
@@ -171,26 +179,23 @@
             <!-- Grid row -->
             <div class="row mt-3">
               <!-- Grid column -->
-              <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4" id="loo">
                 <!-- Content -->
-                <img src="images/ecl.png" id="logo">
+                <img src="images/ecl.png" id="logo" style="width:100%;">
               </div>
               <!-- Grid column -->
-              <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+              <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mb-4" style="width: 75%;">
                 <!-- Links -->
-                <h6 class="text-uppercase font-weight-bold">Links 1</h6>
-                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <h6 class="text-uppercase font-weight-bold" id="linkname"></h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto">
                 <p>
-                  <a href="#!">1</a>
+                  <a href="#" id="link01" style="font-size: 8;"></a>
                 </p>
                 <p>
-                  <a href="#!">2</a>
+                  <a href="#!" id="link02" style="font-size: 8;"></a>
                 </p>
                 <p>
-                  <a href="#!">3</a>
-                </p>
-                <p>
-                  <a href="#!">4</a>
+                  <a href="#!" id="link03" style="font-size: 8;"></a>
                 </p>
               </div>
               <!-- Grid column -->
@@ -199,16 +204,19 @@
                 <h6 class="text-uppercase font-weight-bold">Created by</h6>
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                 <p>
-                  user
+                  Jinhan ZHOU
                 </p>
                 <p>
-                  user
+                  Anas Zilali
                 </p>
                 <p>
-                  user
+                  Leon MARGRAFF
                 </p>
                 <p>
-                  user
+                  Louis BRUN
+                </p>
+                <p>
+                  Yunmiao MA
                 </p>
               </div>
               <!-- Grid column -->
@@ -217,13 +225,11 @@
                 <h6 class="text-uppercase font-weight-bold">Contact</h6>
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                 <p>
-                  <i class="fas fa-home mr-3"></i>contact</p>
+                  <i class="fas fa-home mr-3"></i>51 chemins de Mouilles, Ecully, 69130 France</p>
                 <p>
-                  <i class="fas fa-envelope mr-3"></i>contact </p>
+                  <i class="fas fa-envelope mr-3"></i>jinhan.zhou@ecl19.ec-lyon.fr </p>
                 <p>
-                  <i class="fas fa-phone mr-3"></i>contact</p>
-                <p>
-                  <i class="fas fa-print mr-3"></i>contact</p>
+                  <i class="fas fa-phone mr-3"></i>+33 (0)6 60 63 05 45</p>
               </div>
               <!-- Grid column -->
             </div>
@@ -256,6 +262,9 @@
         var hdi="HDI";
         var gni="Gini";
         var po=".";
+        var l1=document.getElementById("link01");
+        var l2=document.getElementById("link02");
+        var l3=document.getElementById("link03");
         function getnom() {
             var xhr = new XMLHttpRequest();
             xhr.onload =function(){
@@ -391,18 +400,11 @@
         var longi=document.getElementById('long');
         var paysn=document.getElementById('paysname');
         document.getElementById('boutonpays').addEventListener('click', paymod,false);
-
-
-        function drawlaser(ctx,mData,mW){
-			
-		}
-
+        var dialog = document.querySelector('#dialog');
 
         function paymod(){
             conseigne=2;
-
             var name = document.getElementById('pays').value;
-            
             var link1="https://"+lang_a+".wikipedia.org/wiki/"+name;
             var link2="https://www.airbnb."+lang_b+"/s/"+name+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
             var link3="https://artsandculture.google.com/search?q="+name;
@@ -413,6 +415,8 @@
             if(lang_a=="zh"){
                 link4="https://guide.michelin.com/sg/zh_CN/search?q="+name;
             }
+            document.documentElement.scrollTop=0;
+            dialog.classList.add('show');
             var xhr2 = new XMLHttpRequest();
             xhr2.onload =function(){
                 try{
@@ -444,9 +448,17 @@
                     document.getElementById('buttonmenu2').setAttribute("href",link2);
                     document.getElementById('buttonmenu3').setAttribute("href",link3);
                     document.getElementById('buttonmenu4').setAttribute("href",link4);
-                   
-                    map.setView([data.lat,data.lon], 4);
+                    document.getElementById('loo').setAttribute("class","col-md-1 col-lg-1 col-xl-1 mx-auto mb-4");
+                    document.getElementById('linkname').innerHTML="NEWS";
+                    l1.innerHTML=data.links[0].title;
+                    l2.innerHTML=data.links[1].title;
+                    l3.innerHTML=data.links[2].title;
+                    l1.setAttribute("href",data.links[0].link);
+                    l2.setAttribute("href",data.links[1].link);
+                    l3.setAttribute("href",data.links[2].link);
+
                     map_init();
+                    map.setView([data.lat,data.lon], 4);
 
                     var myChart=echarts.init(laser);
                     option={
@@ -505,13 +517,15 @@
                    		}]
                    	};
                    	if (option && typeof option === "object"){
-                   		myChart.setOption(option,true);                   	
+                   		myChart.setOption(option,true);                	
                    	}
                    	window.addEventListener("resize",function(){
                    		myChart.resize();
                    	});
                     conseigne=1;
+                    dialog.classList.remove('show');
                 }catch(err){
+                	dialog.classList.remove('show');
                     alert(alt_t);
                 }
             }
