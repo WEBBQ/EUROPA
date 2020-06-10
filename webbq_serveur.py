@@ -3,7 +3,7 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
-import wptools
+import wptools #si ce n'est pas encore installer console: pip install wptools
 
 lang_choix=['wu','en','fr','de','zh','ar']
 lang='_en'
