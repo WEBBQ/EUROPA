@@ -15,13 +15,13 @@ client_nom= json.dumps({
 def treat(number):
     print(number)
     if len(str(number).split(".")[0])>12:
-        return[float(number)/1000000000000,"trillion"]
+        return[float(number)/1000000000000,"trillion "]
     elif len(str(number).split(".")[0])>9:
-        return[float(number)/1000000000,"billion"]
+        return[float(number)/1000000000,"billion "]
     elif len(str(number).split(".")[0])>6:
-        return[float(number)/1000000,"million"]
+        return[float(number)/1000000,"million "]
     elif len(str(number).split(".")[0])>3:
-        return[float(number)/1000,"thousand"]
+        return[float(number)/1000,"thousand "]
     else:
         return[float(number),""]
       
@@ -42,7 +42,7 @@ def get_data(country):
       [area,area_u]=treat(info['area_km2'])
       [pop,pop_u]=treat(info['population_estimate'])
       if pop_u!="":
-          pop_u="( "+pop_u+" )"
+          pop_u=pop_u.replace(" ","")
       [gdp,gdp_u]=treat(info['GPA'])
       Gini=float(info['Gini'])
       if Gini>0:
@@ -56,8 +56,8 @@ def get_data(country):
           HDI=str(round(HDI,2))
       else:
           HDI="NaN"
-      return [["Area("+area_u+" km^2) | "+str(round(area,2)),"Population"+pop_u+" | "+str(round(pop,2)),\
-               "GDP("+gdp_u+" $) | "+str(round(gdp,2)),"Gini | "+Gini,"HDI | "+HDI],\
+      return [[" | "+str(round(area,2))+" "+area_u+"km^2"," | "+str(round(pop,2))+" "+pop_u,\
+               " | "+str(round(gdp,2))+" "+gdp_u+"$"," | "+Gini," | "+HDI],\
               [ar,po,gd,gi,hd]]
 
 
