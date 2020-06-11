@@ -34,8 +34,8 @@ def get_link(country):
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.content, "html.parser")
         results = []
-        for g in soup.find_all('div'):
-            anchors = g.find_all('a')
+        for g in soup.find_all('div',limit=500):
+            anchors = g.find_all('a',limit=5)
             try:
                 if anchors:
                     link = "https://news.google.com"+str(anchors[0]['href'])[1:]
