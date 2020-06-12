@@ -49,63 +49,6 @@ a.delete:hover {
 
 
 
-#dialog{
-        justify-content: center;
-        align-items: center;
-        display: none;
-}
-
-#dialog .box{
-        width: 100%;
-        height: 50%;
-        background: url(europa_fate.jpg);
-        background-size: cover;
-        border: 1px solid #f7f7f7;
-        border-radius: 5px;
-        transition: all .7s ;
-        position: relative;
-        top: -900px;
-}
-
-#dialog.show{
-        display: flex;
-        visibility: visible;
-}
-
-#dialog.show .box{
-        top: 0px;
-}
-
-#dialog.close{
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        display: none;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 50%;
-        color: #ff7878;
-        border: 1px solid;
-}
-
-#dialog .close:hover{
-        color:red;
-}
-
-#dialog .box h1{
-        text-align: center;
-        text-shadow: 0 0 5px blue;
-        line-height: 1500%;      
-        margin: 0;
-        color: white;
-        font-size: 50px; 
-}
-
-
-
 #timeP{
   color:#fff;
 }
@@ -159,20 +102,140 @@ a.delete:hover {
 #Laser{
   margin: 0 auto;
 }
-footer{
-  background: #272b30;
+footer {
+  padding-left:140px;
+    background: #272b30;
     color: #fff;
     padding-top: 23px;
+    background-image: url(images/ecl.png);
+    background-repeat: no-repeat;
+    background-size: 136px;
+    background-position: 20px center;
 }
 #sidebarMenu {
     padding-bottom: 120px;
 }
 #logo{
-   width: 190px;
+  display: none;
 }
+#myEchart{height: 100%}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: #000000a6;
+    display: none;
+}
+#loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+@-webkit-keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    0%   {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.show{
+        display: block !important;
+        visibility: visible;
+}
+#news{
+  display: none;
+}
+#container_footer{
+  margin-right: 0;
+}
+
 @media screen and (max-width: 992px) {
   #table_info td {
       display: block;
       margin: 0 auto;
       text-align: center;
      }
+}
+@media screen and (max-width: 768px) {
+  footer{
+    background-image: none;
+    padding-left: 0;
+  }
+  #logo{
+    display: initial;
+        margin-bottom: 33px;
+  }
+  .p-0{
+    padding-bottom: 5px !important;
+  }
+  #pays{
+        margin-bottom: 8px;
+  }
+  #sidebarMenu {
+    padding-bottom: 10px;
+
+  }
+  li.nav-item.text-nowrap{
+    display: contents;
+  }
+  #container_footer {
+    margin-right: auto ;
+  }
+}

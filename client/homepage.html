@@ -3,10 +3,6 @@
     <head>
         <title>Europa</title>
         <meta charset='utf-8'>
-        <style type="text/css">
-    		*{margin: 0;padding: 0}
-    		#myEchart{height: 100%}
-  		</style>
         <link rel="stylesheet" type="text/css" href="leaflet.css" /> 
         <!-- Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
@@ -22,11 +18,9 @@
 
     </head>
     <body id="body">
-	    <div id="dialog">
-	        <div class="box">
-	            <h1>Tempora mutantur, nos et mutamur in illis</h1>
-	        </div>
-	    </div>
+	    <div id="preloader">
+        <div id="loader"></div>
+      </div>
 
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
             <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
@@ -175,16 +169,16 @@
         </div>
               <!-- Footer -->
       <footer class="page-footer font-small unique-color-dark">
-          <div class="container text-center text-md-left mt-5">
+          <div class="container text-center text-md-left mt-5" id="container_footer">
             <!-- Grid row -->
             <div class="row mt-3">
               <!-- Grid column -->
-              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4" id="loo">
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4" id="logo">
                 <!-- Content -->
-                <img src="images/ecl.png" id="logo" style="width:100%;">
+                <img src="images/ecl.png" width="148px">
               </div>
               <!-- Grid column -->
-              <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mb-4" style="width: 75%;">
+              <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mb-4" id="news">
                 <!-- Links -->
                 <h6 class="text-uppercase font-weight-bold" id="linkname"></h6>
                 <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto">
@@ -400,7 +394,7 @@
         var longi=document.getElementById('long');
         var paysn=document.getElementById('paysname');
         document.getElementById('boutonpays').addEventListener('click', paymod,false);
-        var dialog = document.querySelector('#dialog');
+        var dialog = document.querySelector('#preloader');
 
         function paymod(){
             conseigne=2;
@@ -448,7 +442,6 @@
                     document.getElementById('buttonmenu2').setAttribute("href",link2);
                     document.getElementById('buttonmenu3').setAttribute("href",link3);
                     document.getElementById('buttonmenu4').setAttribute("href",link4);
-                    document.getElementById('loo').setAttribute("class","col-md-1 col-lg-1 col-xl-1 mx-auto mb-4");
                     document.getElementById('linkname').innerHTML="NEWS";
                     l1.innerHTML=data.links[0].title;
                     l2.innerHTML=data.links[1].title;
@@ -523,6 +516,8 @@
                    		myChart.resize();
                    	});
                     conseigne=1;
+                    
+                    document.getElementById('news').classList.add('show');
                     dialog.classList.remove('show');
                 }catch(err){
                 	dialog.classList.remove('show');
@@ -530,9 +525,6 @@
                 }
             }
             xhr2.open('GET','/country/'+ encodeURIComponent(name),true);
-            console.log(encodeURIComponent(name));
-            console.log(name);
-
             xhr2.send();
     }
 
@@ -561,6 +553,8 @@
         hdi="HDI";
         gni="Gini";
         po="."
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
+        
         document.getElementById('SEARCH').innerHTML="Search";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -597,6 +591,7 @@
         hdi="مؤشر التنمية البشرية";
         gni="معامل جيني";
         po=".";
+        document.getElementById('loader').setAttribute("style","left:0%;right:50%;");
         document.getElementById('SEARCH').innerHTML="بحث";
         document.getElementById('WIKI').innerHTML="ويكيبيديا";
         document.getElementById('HOTEL').innerHTML="فنادق";
@@ -634,6 +629,7 @@
         hdi="IDH";
         gni="Gini";
         po=",";
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
         document.getElementById('SEARCH').innerHTML="Chercher";
         document.getElementById('WIKI').innerHTML="Wikipédia";
         document.getElementById('HOTEL').innerHTML="Hôtel";
@@ -669,6 +665,7 @@
         hdi="Index der menschlichen Entwicklung";
         gni="Gini";
         po=","
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
         document.getElementById('SEARCH').innerHTML="Suchen";
         document.getElementById('WIKI').innerHTML="Wikipedia";
         document.getElementById('HOTEL').innerHTML="Hotel";
@@ -704,6 +701,7 @@
         hdi="幸福指数";
         gni="基尼系数";
         po=".";
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
         document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜索'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
         document.getElementById('WIKI').innerHTML="维基百科";
         document.getElementById('HOTEL').innerHTML="酒店民宿";

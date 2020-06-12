@@ -3,9 +3,10 @@ import socketserver
 import sqlite3
 from urllib.parse import urlparse, parse_qs, unquote
 import json
-import urllib
-import requests
 from bs4 import BeautifulSoup
+import requests
+import urllib
+import wptools
 
 lang_choix=['wu','en','fr','de','zh','ar']
 lang='_en'
@@ -26,7 +27,7 @@ def get_link(country):
     # mobile user-agent
     MOBILE_USER_AGENT = "Mozilla/5.0 (Linux; Android 7.0; SM-G930V Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.125 Mobile Safari/537.36"
     query = str(country).replace(' ', '+')
-    URL = f"https://news.google.com/search?q={query}"
+    URL = f"https://www.google.com/search?q={query}&tbm=nws&hl=en"
 
     headers = {"user-agent": USER_AGENT}
     resp = requests.get(URL, headers=headers)
@@ -34,12 +35,12 @@ def get_link(country):
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.content, "html.parser")
         results = []
-        for g in soup.find_all('div',limit=500):
-            anchors = g.find_all('a',limit=5)
+        for g in soup.find_all('h3'):
+            anchors = g.find_all('a')
             try:
                 if anchors:
-                    link = "https://news.google.com"+str(anchors[0]['href'])[1:]
-                    title = g.find('h3').text
+                    link = str(anchors[0]['href'])
+                    title = g.text
                     item = {
                         "title": title,
                         "link": link
@@ -219,6 +220,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     for cn in pal:
       pan+=" "+"cn"
     country=pan
+    print(country)
     # préparation de la requête SQL
     c = conn.cursor()
     sql = 'SELECT * from europe_country'+lang+' WHERE wp=?'
@@ -226,6 +228,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
     c.execute(sql,(country,))
     r = c.fetchone()
     # on n'a pas trouvé le pays demandé
+    print(r)
     if r == None:
       self.send_error(404,'Country not found')
     # on génère un document au format html
@@ -238,6 +241,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       if cn=="Bosnia-Herzegovina":
         cn="Bosnia and Herzegovina"
       da=get_data(cn)
+      print(da[0])
       body = json.dumps({
         'wp':r['wp'],\
         'offname':r['name'],\
