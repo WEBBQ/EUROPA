@@ -7,6 +7,7 @@ WEBBQ-EUROPA
  - La documentation technique vous précise les points techniques de notre projet
 
  - Utilisation :
+ 
  (0. Télécharger "europe.db", "webbq_serveur.py" et le dossier "client" dans le même dossier.)
   1. Lancer le serveur intitulé "webbq_serveur.py" en cas d'erreurs (extension manquantes) vous pouvez les installer dans la console, par exemple pour wptools $pip install wptools.
   2. Ouvrir un onglet via Chrome, Firefox, etc. et taper "localhost:8080" pour commencer votre utilisation.
