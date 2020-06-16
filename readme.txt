@@ -4,7 +4,7 @@ WEBBQ-EUROPA (Github : https://github.com/WEBBQ/EUROPA/tree/version-1.0)
 
 - Utilisation :
 0. Téléchargez "europe.db", "webbq_serveur.py" et le dossier "client" dans le même dossier.
-1. Lancher le seruveur intitulé "webbq_serveur.py" et si nécessaire installez les extensions avec pip install.
+1. Lancer le serveur intitulé "webbq_serveur.py" en cas des erreurs des extension manquantes vous pouvez les installer dans la console, par exemple pour wptools $pip install wptools.
 2. Ouvrir une onglet via Chrome, Firebox, etc. et typer "localhost:8080" pour commencer votre utilisation.
 3. Vous être maintenant dans le page de connection, vous pouvez de connecter sans enregistrer comme un visiteur anonyme "Visteur 001" ou typer toutes vos infos. Si les infos ne sont pas complètes, vous serez traité aussi comme "Visiteur 001".
 4. Après la connexion, vous êtes maintenant dans le page initial de notre web "Europa". Vous pouvez choisissez les différents langues dans la zone de langues en gauche, mais n'oubliez pas faire un "Refresh" pour assurer la stabilité de notre web. Après une passage avec animation, vous pouvons observer les infos sur ce pays. À ce moment-là, le pays est marqué par une marker rouge et vous pouvez trouver la distance entre une autre pays et ce pays en cliquant ce premier.
