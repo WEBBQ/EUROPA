@@ -1,6 +1,9 @@
 WEBBQ-EUROPA
 
  - La video "explication.mp4" vous presenter la fonctionnement de cette version(4.0)
+ 
+ - Notice utiliseur peut vous guider lors d'utilisation.
+ - Documentation technique vous précise les points techniques de notre projet.
 
  - Utilisation :
   1. Lancer le serveur intitulé "webbq_serveur.py" en cas des erreurs des extension manquantes vous pouvez les installer dans la console, par exemple pour wptools $pip install wptools.
