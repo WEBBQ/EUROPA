@@ -1,11 +1,11 @@
 # EUROPA
 ECL2020-web-projet
 
-Membre(dans l'ordre de premier lettre du prenom) 
+Membres (dans l'ordre de première lettre du prénom) 
  - Anas Zilali
  - Jinhan Zhou
  - Leon Alwin Margraff
- - Louis Brun
+ - Louis Bruno
  - Yunmiao Ma
 
 Branches:
