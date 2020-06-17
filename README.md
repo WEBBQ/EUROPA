@@ -8,7 +8,8 @@ WEBBQ-EUROPA
 
  - Utilisation :
  
- (0. Télécharger "EUROPA_V4.zip" et les extraire dans un dossier commun.)
+  0. Télécharger "EUROPA_V4.zip" et les extraire dans un dossier commun. "WEBBQ_Manuel_Installation.pdf" pourra vous guider lors d'installation.
+  _______________________________________________________________________________________________________________________________
   1. Lancer le serveur intitulé "webbq_serveur.py" en cas d'erreurs (extension manquantes) vous pouvez les installer dans la console, par exemple pour wptools $pip install wptools.
   2. Ouvrir un onglet via Chrome, Firefox, etc. et taper "localhost:8080" pour commencer votre utilisation.
   3. Vous êtes maintenant dans le page de connexion, vous pouvez vous connecter sans vous enregistrer (en tant que visiteur anonyme "Visiteur 001") ou taper toutes vos infos. Si les infos ne sont pas complètes, vous serez traité aussi comme "Visiteur 001".
