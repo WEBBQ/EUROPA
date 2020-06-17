@@ -1,10 +1,13 @@
 WEBBQ-EUROPA
 
  - La vidéo "explication.mp4" vous presente le fonctionnement de cette version (4.0)
+  _______________________________________________________________________________________________________________________________
  
  - Une notice utilisateur peut vous aider lors de l'utilisation
  
  - La documentation technique vous précise les points techniques de notre projet
+  _______________________________________________________________________________________________________________________________
+   _______________________________________________________________________________________________________________________________
 
  - Utilisation :
  
