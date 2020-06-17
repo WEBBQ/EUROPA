@@ -9,4 +9,5 @@ Membres (dans l'ordre de première lettre du prénom)
  - Yunmiao Ma
 
 Branches:
- - version-1.0: EUOROPA V1.0
+ - version-1.0: EUOROPA V4.0
+      (Incluant "EUROPA_V4.zip" pour rapidement installation)
