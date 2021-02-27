@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Europa</title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" type="text/css" href="leaflet.css" /> 
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"> 
+        <!-- Bootstrap -->
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Times' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <script src="leaflet.js">// Bibliothèque Leaflet : http://leafletjs.com/ </script> 
+          <!-- reference your copy Font Awesome here (from our CDN or by hosting yourself) -->
+        <script src="https://kit.fontawesome.com/2f8c6e89bd.js" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    </head>
+    <body id="body">
+	    <div id="preloader">
+        <div id="loader"></div>
+      </div>
+
+        <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/homepage.html">Europa</a>
+            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <input id="pays" list="browsers" class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+            <datalist id="browsers"></datalist>
+            <button class="btn btn-outline-info my-2 my-sm-0" id="boutonpays"><span id="SEARCH">Search</span></button>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                  <span id="nom"></span>
+                  <span id="timeP"></span>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="container-fluid">
+          <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+              <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a id="buttonmenu1" class="nav-link" href="https://fr.wikipedia.org/wiki/europe">
+                      <i class="fab fa-wikipedia-w"></i>
+                      <span id="WIKI">Wikipedia</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu2" class="nav-link" href="https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query">
+                      <i class="fas fa-hotel"></i>
+                      <span id="HOTEL">Hotel</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu3" class="nav-link" href="https://artsandculture.google.com/search?q=europe">
+                      <i class="fas fa-archway"></i>
+                      <span id="ART">Art</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu5" class="nav-link" href="https://www.kiwi.com/fr/landing/-/-">
+                      <i class="fas fa-bus"></i>
+                      <span id="TRANSPORT">Transport</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a id="buttonmenu4" class="nav-link" href="https://guide.michelin.com/fr/fr/search?q=europe">
+                      <i class="fas fa-utensils"></i>
+                      <span id="FOOD">Food</span>
+                    </a>
+                  </li>
+                </ul>
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                  <span id="LANG">Language</span>
+                  <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
+                    <span data-feather="plus-circle"></span>
+                  </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/EN/homepage.html#" id="EN">
+                      <img src="images/en.png" class="img_lang">
+                      <span data-feather="file-text">ENGLISH</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/FR/homepage.html#" id="FR">
+                        <img src="images/fr.png" class="img_lang">
+                      <span data-feather="file-text">FRANÇAIS</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/DE/homepage.html#" id="DE">
+                      <img src="images/de.png" class="img_lang">
+                      <span data-feather="file-text">DEUTSCH</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/ZH/homepage.html#" id="ZH">
+                      <img src="images/zh.png" class="img_lang">
+                      <span data-feather="file-text">简体中文</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/WU/homepage.html#" id="WU">
+                      <img src="images/zh.png" class="img_lang">
+                      <span data-feather="file-text">吴地闲话</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/AR/homepage.html#" id="AR">
+                      <img src="images/ar.png" class="img_lang">
+                      <span data-feather="file-text">العربية</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"><span id="MAP">Map</span></h1>
+                <!--
+                <div class="btn-toolbar mb-2 mb-md-0">
+                  <div class="btn-group mr-2">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                  </div>
+                  <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                    <span data-feather="calendar"></span>
+                    This week
+                  </button>
+                </div>
+                -->
+              </div>
+
+              <div class="my-4 w-100" width="900" height="380" id="map"></div>
+
+              <h2 id="title_info"><span id="INFO">Informations</span></h2>
+              <div id="link123"></div>
+              <div id="table_info" class="table-responsive">
+                <table class="table table-striped table-sm">
+                  <tbody>
+                    <tr>
+                      <td id="flag"></td>
+                      <td></td>
+                      <td id="info">
+                        <div id="paysname"></div>
+                        <ul id="other_info">
+                          <li id="offn"></li>
+                          <li id="cap"></li>
+                          <li id="lati"></li>
+                          <li id="long"></li>
+                        </ul>
+                      <td>
+                      	<div id="Laser" style="height: 280px;width: 500px;"></div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </main>
+        	</div>
+          </div>
+        </div>
+              <!-- Footer -->
+      <footer class="page-footer font-small unique-color-dark">
+          <div class="container text-center text-md-left mt-5" id="container_footer">
+            <!-- Grid row -->
+            <div class="row mt-3">
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4" id="logo">
+                <!-- Content -->
+                <img src="images/ecl.png" width="148px">
+              </div>
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mb-4" id="news">
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold" id="linkname"></h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto">
+                <p>
+                  <a href="#" id="link01" style="font-size: 8;"></a>
+                </p>
+                <p>
+                  <a href="#!" id="link02" style="font-size: 8;"></a>
+                </p>
+                <p>
+                  <a href="#!" id="link03" style="font-size: 8;"></a>
+                </p>
+              </div>
+              <!-- Grid column -->
+              <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Created by</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                  Jinhan ZHOU
+                </p>
+                <p>
+                  Anas Zilali
+                </p>
+                <p>
+                  Leon MARGRAFF
+                </p>
+                <p>
+                  Louis BRUN
+                </p>
+                <p>
+                  Yunmiao MA
+                </p>
+              </div>
+              <!-- Grid column -->
+              <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                <!-- Links -->
+                <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p>
+                  <i class="fas fa-home mr-3"></i>51 chemins de Mouilles, Ecully, 69130 France</p>
+                <p>
+                  <i class="fas fa-envelope mr-3"></i>jinhan.zhou@ecl19.ec-lyon.fr </p>
+                <p>
+                  <i class="fas fa-phone mr-3"></i>+33 (0)6 60 63 05 45</p>
+              </div>
+              <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+          </div>
+
+        </footer>
+        <!-- Footer -->
+    </body>
+    <script type="text/javascript" src="flags.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script>
+        var lang_a="en";
+        var lang_b="com";
+        var wel_t="Welcome! ";
+        var eur_t="Europe | ";
+        var uan_t="You're at";
+        var dis_t="Distance from";
+        var off_t="Officiel Name";
+        var cap_t="Capital";
+        var lat_t="Latitude";
+        var lon_t="Longitude";
+        var alt_t="We couldn't find this country in Europe!";
+        var laser=document.getElementById("Laser");
+        var conseigne=0;
+        var area="Area";
+        var popu="Population";
+        var gdp="GDP";
+        var hdi="HDI";
+        var gni="Gini";
+        var po=".";
+        var l1=document.getElementById("link01");
+        var l2=document.getElementById("link02");
+        var l3=document.getElementById("link03");
+        function getnom() {
+            var xhr = new XMLHttpRequest();
+            xhr.onload =function(){
+                var data = JSON.parse(this.responseText);
+                // affichage dans la zone 'nom' du prénom et du nom récupéré par l'appel au serveur
+                document.getElementById('nom').innerHTML =wel_t + "&nbsp"+ data.given_name + ' ' + data.family_name;
+            };
+            xhr.open('GET','/nom',true);
+            xhr.send();
+        };
+
+        function getTime(){
+            var p = document.getElementById("timeP");
+            var time =  new Date();
+            var year = time.getFullYear();
+            var month = time.getMonth() + 1;
+            var day = time.getDate();
+            var hour = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            var str = " | " + hour+":"+minutes+":"+seconds + " - " + day + "/" + month + "/" + year;
+            p.innerText = str;
+            setTimeout(getTime,1000);
+        } 
+
+        var payslist=document.getElementById('browsers');
+        var map = L.map('map');
+        map.setView([45.75,4.85], 4);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        var redIcon = new L.icon({
+            iconUrl: "images/marker-icon-red.png",
+            iconAnchor: [12, 41.7],
+            labelAnchor: [-6, 0],
+            popupAnchor: [0, -36],
+        });
+        function getCountryCode(countryName) {
+            return "https://lipis.github.io/flag-icon-css/flags/4x3/"+
+            codes.find(o=>o.name.match(RegExp(countryName.split("-")[0].split(' ')[0],'i'))).code.toLowerCase()+".svg";
+        }
+        function getAnthemCode(countryName) {
+            return "https://anthemworld.com/~anthemwo/themesongs/"+countryName+".mp3";
+        }
+
+        function map_init () {
+            var xhr1 = new XMLHttpRequest();
+            if(conseigne==2){
+                var name_a=paysn.innerHTML.split(">")[1].split("<")[0];
+                var lat_a=latit.innerHTML.split(";")[2].replace(po,".");
+                var lon_a=longi.innerHTML.split(";")[2].replace(po,".");
+                xhr1.onload = function() {
+                var data = JSON.parse(this.responseText);
+                    for ( n = 0; n < data.length; n++ ) {
+                        var a=lat_a-data[n].lat;
+                        var b=lon_a-data[n].lon;
+                        var distance=2*Math.asin(Math.sqrt(Math.sin(a/2)**2+Math.cos(lat_a)*Math.cos(data[n].lat)*Math.sin(b/2)**2))*6378.137;
+                        var name_wp=data[n].id.toUpperCase();
+                        if(name_wp==name_a){
+                            L.marker([data[n].lat,data[n].lon],{icon: redIcon}).addTo(map)
+                            .bindPopup(eur_t+data[n].name+"<br>"+uan_t+"&nbsp"+"<b>"+name_a+"</b>")
+                            .addEventListener('dblclick',Mark)
+                            .idnom=data[n].id;
+                        }else{
+                            L.marker([data[n].lat,data[n].lon]).addTo(map)
+                            .bindPopup(eur_t+data[n].name+"<br>"+dis_t+"&nbsp"+"<b>"+name_a+"</b>"+"&nbsp"+":"+"&nbsp"+distance.toFixed(3).toString().replace(".",po)+"km")
+                            .addEventListener('dblclick',Mark)
+                            .idnom=data[n].id;
+                        } 
+                    }
+                };
+                xhr1.open('GET','/location',true);
+                xhr1.send();
+            }
+            if(conseigne==0){
+                var lis="";
+                xhr1.onload = function() {
+                    var data = JSON.parse(this.responseText);
+                    for ( n = 0; n < data.length; n++ ) {
+                        // insertion d'un marqueur à la position du lieu,
+                        // attachement d'une popup, capture de l'événement 'clic'
+                        // ajout d'une propriété personnalisée au marqueur
+                        L.marker([data[n].lat,data[n].lon]).addTo(map)
+                        .bindPopup(eur_t+data[n].name)
+                        .addEventListener('dblclick',Mark)
+                        .idnom=data[n].id;
+                        lis=lis+"<option value="+data[n].id+">"; 
+                        payslist.innerHTML=lis;
+                    }
+                };
+                xhr1.open('GET','/location',true);
+                xhr1.send();
+            }
+        }
+        function Mark(e){
+            document.getElementById('pays').value=e.target.idnom;
+            paymod();
+        }
+
+        window.onload = function(){
+            if(conseigne==0){
+                var la=window.location.toString().split("/")[3];
+                getnom();
+                map_init();
+                conseigne=1;
+                if(la=="FR"){
+                  tofr();
+                }
+                else if(la=="DE"){
+                  tode();
+                }
+                else if(la=="ZH"){
+                  tozh();
+                }
+                else if(la=="AR"){
+                  toar();
+                }
+                else if(la=="WU"){
+                  towu();
+                }
+                else{
+                  toen();
+                }
+            }
+            getTime();
+        }
+
+        var offna=document.getElementById('offn');
+        var capi=document.getElementById('cap');
+        var latit=document.getElementById('lati');
+        var longi=document.getElementById('long');
+        var paysn=document.getElementById('paysname');
+        document.getElementById('boutonpays').addEventListener('click', paymod,false);
+        var dialog = document.querySelector('#preloader');
+
+        function paymod(){
+            conseigne=2;
+            var name = document.getElementById('pays').value;
+            var link1="https://"+lang_a+".wikipedia.org/wiki/"+name;
+            var link2="https://www.airbnb."+lang_b+"/s/"+name+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            var link3="https://artsandculture.google.com/search?q="+name;
+            var link4="https://guide.michelin.com/"+lang_a+"/"+lang_a+"/search?q="+name;
+            if(lang_a=="en"){
+                link2="https://www.airbnb.co.uk/s/"+name+"/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query";
+            }
+            if(lang_a=="zh"){
+                link4="https://guide.michelin.com/sg/zh_CN/search?q="+name;
+            }
+            document.documentElement.scrollTop=0;
+            dialog.classList.add('show');
+            var xhr2 = new XMLHttpRequest();
+            xhr2.onload =function(){
+                try{
+                    var data = JSON.parse(this.responseText);
+                    document.getElementById('link123').innerHTML='<audio controls><source src="https://anthemworld.com/~anthemwo/themesongs/'+data.id+'.mp3" type="audio/mpeg"><source></audio>';
+                    if(data.id=="Azerbaidjan"){
+                    	data.id="Azerbaijan";
+                    }
+                    if(data.id=="Macedonia"){
+                    	data.id="North Macedonia";
+                    }
+                    if(data.id=="Kosovo"){
+                    	data.id="Republic of Kosovo";
+                    }
+                    if(data.id=="United Kingdom"){
+                    	document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="https://lipis.github.io/flag-icon-css/flags/4x3/gb.svg">').join('');
+                    }else{
+                    	document.getElementById('flag').innerHTML=[data.wp].map(c=>'<img src="'+getCountryCode(data.id)+'">').join('');
+                    }
+                    document.getElementById("title_info").style.display = "block";
+                    document.getElementById("table_info").style.display = "block";
+                    offna.innerHTML = '<b>'+off_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.offname.toString();
+                    capi.innerHTML = '<b>'+cap_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.capital.toString();
+                    latit.innerHTML = '<b>'+lat_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lat.toFixed(3).toString().replace(".",po);
+                    longi.innerHTML = '<b>'+lon_t+'</b>'+"&nbsp"+':'+"&nbsp"+data.lon.toFixed(3).toString().replace(".",po);
+                    paysn.innerHTML="<b>"+name.toUpperCase()+"<b>";
+                    var canvas = document.createElement('canvas');
+                    document.getElementById('buttonmenu1').setAttribute("href",link1);
+                    document.getElementById('buttonmenu2').setAttribute("href",link2);
+                    document.getElementById('buttonmenu3').setAttribute("href",link3);
+                    document.getElementById('buttonmenu4').setAttribute("href",link4);
+                    document.getElementById('linkname').innerHTML="NEWS";
+                    l1.innerHTML=data.links[0].title;
+                    l2.innerHTML=data.links[1].title;
+                    l3.innerHTML=data.links[2].title;
+                    l1.setAttribute("href",data.links[0].link);
+                    l2.setAttribute("href",data.links[1].link);
+                    l3.setAttribute("href",data.links[2].link);
+
+                    map_init();
+                    map.setView([data.lat,data.lon], 4);
+
+                    var myChart=echarts.init(laser);
+                    option={
+                    	color: ["#4587E7"],
+                    	tooltip: {},
+                    	radar: {
+                    		name: {
+                    			textStyle: {
+                    				color: "#333"
+                    			},
+                    			fontSize: 8
+                    		},
+                    		shape: "circle",
+                    		center:['50%','50%'],
+                    		radius:'80%',
+                    		triggerEvent:false,
+                    		indicator: [{
+                    			name:area+data.information_head[0],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:popu+data.information_head[1],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:gdp+data.information_head[2],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:hdi+data.information_head[4],
+                    			max: 247,
+                    			min: 1
+                    		},
+                    		{
+                    			name:gni+data.information_head[3],
+                    			max: 100,
+                    			min: 0
+                    		}]
+                    	},
+                    	series: [{
+                    		name: "Informations",
+                    		type: 'radar',
+                   			areaStyle: {
+                				opacity: 0.1
+                   			},
+                    		lineStyle:{
+                    			width: 1
+                    		},
+                    		data : [{
+                   				value: data.information,
+                   				name: document.getElementById('INFO').innerHTML
+                   			}]
+                   		}]
+                   	};
+                   	if (option && typeof option === "object"){
+                   		myChart.setOption(option,true);                	
+                   	}
+                   	window.addEventListener("resize",function(){
+                   		myChart.resize();
+                   	});
+                    conseigne=1;
+                    
+                    document.getElementById('news').classList.add('show');
+                    dialog.classList.remove('show');
+                }catch(err){
+                	dialog.classList.remove('show');
+                    alert(alt_t);
+                }
+            }
+            xhr2.open('GET','/country/'+ encodeURIComponent(name),true);
+            xhr2.send();
+    }
+
+    document.getElementById('EN').addEventListener('click', toen,false);
+    document.getElementById('FR').addEventListener('click', tofr,false);
+    document.getElementById('DE').addEventListener('click', tode,false);
+    document.getElementById('ZH').addEventListener('click', tozh,false);
+    document.getElementById('WU').addEventListener('click', towu,false);
+    document.getElementById('AR').addEventListener('click', toar,false);
+
+    function toen(){
+        lang_a="en";
+        lang_b="com"
+        wel_t="Welcome! ";
+        eur_t="Europe | ";
+        uan_t="You're at";
+        dis_t="Distance from";
+        off_t="Officiel Name";
+        cap_t="Capital";
+        lat_t="Latitude";
+        lon_t="Longitude";
+        alt_t="We couldn't find this country in Europa!";
+        area="Area";
+        popu="Population";
+        gdp="GDP";
+        hdi="HDI";
+        gni="Gini";
+        po="."
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
+        
+        document.getElementById('SEARCH').innerHTML="Search";
+        document.getElementById('WIKI').innerHTML="Wikipedia";
+        document.getElementById('HOTEL').innerHTML="Hotel";
+        document.getElementById('ART').innerHTML="Art";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Food";
+        document.getElementById('LANG').innerHTML="Language";
+        document.getElementById('MAP').innerHTML="Map";
+        document.getElementById('INFO').innerHTML="Informations";
+        document.getElementById('buttonmenu1').setAttribute("href","https://en.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.co.uk/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/en/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
+        conseigne=0;
+        map_init();
+    }
+    function toar(){
+        lang_a="ar";
+        lang_b="com"
+        wel_t="مرحبا  !";
+        eur_t=" أوروبا  |";
+        uan_t="أنت في ";
+        dis_t="المسافة من";
+        off_t="الإسم الرسمي";
+        cap_t="العاصمة";
+        lat_t="خط العرض";
+        lon_t="خط الطول";
+        alt_t="لم نستطع إيجاد ههذا البلد في أوروبا";
+        area="المساحة";
+        popu="التعداد السكاني";
+        gdp="الناتج المحلي الإجمالي";
+        hdi="مؤشر التنمية البشرية";
+        gni="معامل جيني";
+        po=".";
+        document.getElementById('loader').setAttribute("style","left:0%;right:50%;");
+        document.getElementById('SEARCH').innerHTML="بحث";
+        document.getElementById('WIKI').innerHTML="ويكيبيديا";
+        document.getElementById('HOTEL').innerHTML="فنادق";
+        document.getElementById('ART').innerHTML="الفن";
+        document.getElementById('TRANSPORT').innerHTML="المواصالات";
+        document.getElementById('FOOD').innerHTML="الطعام";
+        document.getElementById('LANG').innerHTML="اللغة";
+        document.getElementById('MAP').innerHTML="الخريطة";
+        document.getElementById('INFO').innerHTML="معلومات";
+        document.getElementById('buttonmenu1').setAttribute("href","https://ar.wikipedia.org/wiki/%D8%A3%D9%88%D8%B1%D9%88%D8%A8%D8%A7");
+        document.getElementById('buttonmenu2').setAttribute("href","https://ar.airbnb.com/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query&_set_bev_on_new_domain=1591393619_NGZmOWE2NGJhMDZi");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/en/en/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/ar/landing/-/-/");
+        document.documentElement.style.direction="rtl";
+        document.getElementById('body').style.textAlign="right";
+
+        conseigne=0;
+        map_init();
+    }
+    function tofr(){
+        lang_a="fr";
+        lang_b="fr";
+        wel_t="Bienvenue ! ";
+        eur_t="Europe | ";
+        uan_t="Vous êtes à";
+        dis_t="Distance de";
+        off_t="Nom officiel";
+        cap_t="Capital";
+        lat_t="Latitude";
+        lon_t="Longitude";
+        alt_t="Nous n'arrivons pas à trouver ce pays dans Europa!";
+        area="Superficie";
+        popu="Population";
+        gdp="PIB";
+        hdi="IDH";
+        gni="Gini";
+        po=",";
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
+        document.getElementById('SEARCH').innerHTML="Chercher";
+        document.getElementById('WIKI').innerHTML="Wikipédia";
+        document.getElementById('HOTEL').innerHTML="Hôtel";
+        document.getElementById('ART').innerHTML="Art";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Gastronomie";
+        document.getElementById('LANG').innerHTML="Langue";
+        document.getElementById('MAP').innerHTML="Plan";
+        document.getElementById('INFO').innerHTML="Informations";
+        document.getElementById('buttonmenu1').setAttribute("href","https://fr.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.fr/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/fr/fr/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/fr/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        conseigne=0;
+        map_init();
+    }
+    function tode(){
+        lang_a="de";
+        lang_b="de";
+        wel_t="Willkommen! ";
+        eur_t="Europe | ";
+        uan_t="Sie sind in";
+        dis_t="Entfernung von";
+        off_t="Offizieller Name";
+        cap_t="Hauptstadt";
+        lat_t="Breitengrad";
+        lon_t="Längengrad";
+        alt_t="Wir konnten dieses Land in Europa nicht finden!";
+        area="Fläche";
+        popu="Einwohnerzahl";
+        gdp="Bruttoinlandsprodukt";
+        hdi="Index der menschlichen Entwicklung";
+        gni="Gini";
+        po=","
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
+        document.getElementById('SEARCH').innerHTML="Suchen";
+        document.getElementById('WIKI').innerHTML="Wikipedia";
+        document.getElementById('HOTEL').innerHTML="Hotel";
+        document.getElementById('ART').innerHTML="Kunst";
+        document.getElementById('TRANSPORT').innerHTML="Transport";
+        document.getElementById('FOOD').innerHTML="Gastronomie";
+        document.getElementById('LANG').innerHTML="In anderen Sprachen";
+        document.getElementById('MAP').innerHTML="Karte";
+        document.getElementById('INFO').innerHTML="Informationen";
+        document.getElementById('buttonmenu1').setAttribute("href","https://de.wikipedia.org/wiki/europe");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.de/s/europe/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/de/de/search?q=europe");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/de/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        conseigne=0;
+        map_init();
+    }
+    function tozh(){
+        lang_a="zh";
+        lang_b="cn";
+        wel_t="欢迎！ ";
+        eur_t="欧洲 | ";
+        uan_t="您正处于";
+        dis_t="距";
+        off_t="官方名称";
+        cap_t="行政首都";
+        lat_t="经度位置";
+        lon_t="纬度位置";
+        alt_t="我们未能在Europa上找到该国家！";
+        area="国土面积";
+        popu="人口";
+        gdp="国内生产总值";
+        hdi="幸福指数";
+        gni="基尼系数";
+        po=".";
+        document.getElementById('loader').setAttribute("style","left:50%;right:0%;");
+        document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜索'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
+        document.getElementById('WIKI').innerHTML="维基百科";
+        document.getElementById('HOTEL').innerHTML="酒店民宿";
+        document.getElementById('ART').innerHTML="当地艺术";
+        document.getElementById('TRANSPORT').innerHTML="交通出行";
+        document.getElementById('FOOD').innerHTML="特色美食";
+        document.getElementById('LANG').innerHTML="语言";
+        document.getElementById('MAP').innerHTML="地图";
+        document.getElementById('INFO').innerHTML="具体信息";
+        document.getElementById('buttonmenu1').setAttribute("href","https://zh.wikipedia.org/wiki/欧洲");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.cn/s/欧洲/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
+        conseigne=0;
+        map_init();
+    }
+    function towu(){
+        lang_a="zh";
+        lang_b="cn";
+        wel_t="欢迎！ ";
+        eur_t="欧洲 | ";
+        uan_t="侬来勒";
+        dis_t="距";
+        off_t="官方名头";
+        cap_t="行政首都";
+        lat_t="经度几何";
+        lon_t="纬度几何";
+        alt_t="阿拉勿能来勒Europa上头寻着搿国家！";
+        area="方圆";
+        popu="人口";
+        gdp="国内生产总值";
+        hdi="幸福指数";
+        gni="基尼系数";
+        po=".";
+        document.getElementById('SEARCH').innerHTML='<div style="width: 150%">搜寻'+'&nbsp'+'&nbsp'+'&nbsp'+'&nbsp'+'</div>';
+        document.getElementById('WIKI').innerHTML="维基百科";
+        document.getElementById('HOTEL').innerHTML="住啥人家";
+        document.getElementById('ART').innerHTML="看西洋镜";
+        document.getElementById('TRANSPORT').innerHTML="逛六城门";
+        document.getElementById('FOOD').innerHTML="吃好物什";
+        document.getElementById('LANG').innerHTML="闲话版本";
+        document.getElementById('MAP').innerHTML="地图";
+        document.getElementById('INFO').innerHTML="皮里阳秋";
+        document.getElementById('buttonmenu1').setAttribute("href","https://zh.wikipedia.org/wiki/欧洲");
+        document.getElementById('buttonmenu2').setAttribute("href","https://www.airbnb.cn/s/欧洲/homes?tab_id=all_tab&refinement_paths%5B%5D=%2Fhomes&source=structured_search_input_header&search_type=search_query");
+        document.getElementById('buttonmenu4').setAttribute("href","https://guide.michelin.com/sg/zh_CN/search?q=欧洲");
+        document.getElementById('buttonmenu5').setAttribute("href","https://www.kiwi.com/cn/landing/-/-");
+        document.documentElement.style.direction="ltr";
+        document.getElementById('body').style.textAlign="left";
+        conseigne=0;
+        map_init();
+    }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</html>

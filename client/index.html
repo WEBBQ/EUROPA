@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<title>Europa Connection</title>
+<link href='https://fonts.googleapis.com/css?family=Times' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<meta charset='utf-8'>
+<style>
+body {
+  font-family: Times, sans-serif;
+  background: url(europa_tiziano.jpg);
+  background-size: cover;
+  background-position: 50% 20%;
+}
+main {
+  margin: 20%;
+  padding: 5%;
+  border: 1px solid #666;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px #444;
+  background: linear-gradient(0deg, #ffa50040, orange), url('europa_element.jpg');
+  background-size: cover; 
+  position: center center no-repeat;
+}
+h1 {
+  margin-top: 0;
+  color: maroon;
+  font-family: Open+sans, sans-serif;
+  text-shadow: 1px 1px white;
+}
+label {
+  display: block;
+  padding-bottom: 0.5em;
+}
+label span {
+  display: inline-block;
+  width : 5em;
+}
+.button {
+    background: linear-gradient(85deg, #ffa50040, blue);
+    border: none;
+    color: white;
+    padding: 1.5% 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 75%;
+    margin: 2px 2px;
+    cursor: pointer;
+    font-family: Roboto;
+}
+</style>
+
+<main>
+<h1>Bienvenu à l'Europe !</h1>
+<div>
+<label><span>Prénom :</span><input id="prenom" name="Prenom"></label>
+<label><span>Nom :</span><input id="nom" name="Nom"></label>
+<a href="/homepage.html" class="button" id="bouton1">Se connecter</a>
+<a href="/homepage.html" class="button" id="bouton2">Continuer sans connexion</a>
+</div>
+</main>
+
+<script>
+document.getElementById('bouton1').addEventListener('click', envoiformulaire);
+
+function envoiformulaire(e) {
+   var xhr = new XMLHttpRequest(); 
+
+   // on récupére le nom et le prénom
+   var pr = document.getElementById('prenom').value,
+       no = document.getElementById('nom').value ;
+
+  // requête au serveur avec un "path info"
+  xhr.open('GET','/toctoc/'+pr+'/'+no,true);
+  xhr.send();
+}
+</script>
